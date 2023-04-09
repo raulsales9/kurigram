@@ -105,3 +105,7 @@ main{
 .bg-copyright{
     background-color: var(--darkblue);
 }
+
+.row-color{
+    background-color: #1190CB;
+}
