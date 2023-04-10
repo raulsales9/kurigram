@@ -1,0 +1,107 @@
+/* Global colours / Colores generales */
+:root{
+   --darkblue: #0E2439;
+   --white: #FFF;
+   --grey:  #E6E6E6;
+   --blue: #1190CB;
+   --semidarkblue: #0142f3bd;
+}
+
+
+/*  Fonts used / Fuentes utilizadas   */
+@font-face{
+    font-family: roboto;
+    src: url("");
+}
+
+@font-face{
+    font-family: poppins;
+    src: url("./../styles/Poppins-MediumItalic.ttf");
+}
+
+/* Text / Texto*/
+
+
+/*Navbar*/
+.navbar-item{
+    margin-right: 20px;
+}
+
+
+/* Layout / Maquetado */
+header{
+    background-color: var(--darkblue);
+    height: 100px;
+}
+
+.img-header{
+    width: 71px;
+    height: 53px; 
+    margin-left: 15px;
+}
+main{
+    margin-top: 50px;
+}
+
+/*Jumbotron*/
+.jumbotron{
+    /* Founded at pexels.com without copyright permissions */
+    background: url("./../images/jumbotron/jumbotron_v1.jpg");
+    height: 600px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+    opacity: 0.9;
+}
+
+.div-text-jumbo{
+    background-color: var(--blue);
+    opacity: 0.8;
+}
+
+.textoseparado{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+/*Cards*/
+.imgCard img{
+    width: 156px;
+    height: 160px;
+}
+
+.card-container{
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+/*backgrounds*/
+.bg-text{
+   background: rgb(2,0,36);
+   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(196,196,245,1) 0%, rgba(0,212,255,1) 95%);
+}
+
+.bg-card{
+    background-color: var(--darkblue);
+}
+
+.bg-section{
+    background-color: var(--white);
+}
+.bg-to-to{
+    background-color: var(--blue);
+}
+
+.bg-header{
+    background-color: var(--darkblue);
+}
+
+.bg-footer{
+    background-color: var(--semidarkblue);
+}
+
+.bg-copyright{
+    background-color: var(--darkblue);
+}
