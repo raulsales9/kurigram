@@ -34,6 +34,8 @@ header{
     height: 100px;
 }
 
+
+
 .img-header{
     width: 71px;
     height: 53px; 
@@ -111,3 +113,4 @@ main{
 .bg-copyright{
     background-color: var(--darkblue);
 }
+

@@ -2,7 +2,7 @@
 :root{
    --darkblue: #0E2439;
    --white: #FFF;
-   --grey:  #E6E6E6;
+   --grey:  #cac9c9;
    --blue: #1190CB;
    --semidarkblue: #0142f3bd;
 }
@@ -27,12 +27,13 @@
     margin-right: 20px;
 }
 
-
 /* Layout / Maquetado */
 header{
     background-color: var(--darkblue);
     height: 100px;
 }
+
+
 
 .img-header{
     width: 71px;
@@ -41,6 +42,25 @@ header{
 }
 main{
     margin-top: 50px;
+    background-color: var(--white);
+}
+
+/*style section*/
+.section1{
+    background-color: var(--grey);
+}
+
+.section2{
+    background-color: var(--grey);
+    height: 250px;
+}
+
+.section3{
+    background-color: var(--grey);
+}
+
+.section4{
+    background-color: var(--grey);
 }
 
 /*Jumbotron*/
@@ -108,4 +128,12 @@ main{
 
 .row-color{
     background-color: #1190CB;
+}
+
+.message{
+    background-color: var(--grey);
+}
+
+.grey{
+    background-color: var(--grey);
 }
