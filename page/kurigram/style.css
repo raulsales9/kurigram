@@ -48,19 +48,24 @@ main{
 /*style section*/
 .section1{
     background-color: var(--grey);
+    height: 700px;
 }
 
 .section2{
     background-color: var(--grey);
-    height: 250px;
+    height: 400px;
 }
 
 .section3{
     background-color: var(--grey);
+    height: 700px;
 }
 
 .section4{
     background-color: var(--grey);
+    height: 500px;
+    display: flex;
+    margin-top: 20px;
 }
 
 /*Jumbotron*/
