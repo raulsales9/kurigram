@@ -12,7 +12,7 @@ class KurigramController extends AbstractController
     public function index(): Response
     {
         return $this->render('kurigram/index.html.twig', [
-            'controller_name' => 'KurigramController',
+            
         ]);
     }
 }

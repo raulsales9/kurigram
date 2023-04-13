@@ -12,7 +12,7 @@ class Posts
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id_post = null;
+    private ?int $idPost = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $created_at = null;
@@ -23,23 +23,18 @@ class Posts
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $text = null;
 
+    #[ORM\Column()]
+    private ?bool $isSubmitted = null;
+
     #[ORM\Column(length: 255)]
     private ?string $file = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $title = null;
 
-    public function getIdPost(): ?int
-    {
-        return $this->id_post;
-    }
-
-    public function setIdPost(int $id_post): self
-    {
-        $this->id_post = $id_post;
-
-        return $this;
-    }
+    #[ORM\ManyToOne(inversedBy: 'files')]
+    #[ORM\JoinColumn(nullable: true, name: 'id_user')]
+   private ?User $idUser = null;
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -100,4 +95,42 @@ class Posts
 
         return $this;
     }
+
+    public function getIdPost()
+    {
+        return $this->idPost;
+    }
+
+    public function setIdPost($idPost)
+    {
+        $this->idPost = $idPost;
+
+        return $this;
+    }
+
+
+    
+    public function getIsSubmitted()
+    {
+        return $this->isSubmitted;
+    }
+
+    public function setIsSubmitted($isSubmitted)
+    {
+        $this->isSubmitted = $isSubmitted;
+
+        return $this;
+    }
+
+   public function getIdUser()
+   {
+      return $this->idUser;
+   }
+
+   public function setIdUser($idUser)
+   {
+      $this->idUser = $idUser;
+
+      return $this;
+   }
 }

@@ -22,6 +22,14 @@ class Follow
     #[ORM\Column]
     private ?int $posts = null;
 
+    
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'event')]
+    private Collection $idUser;
+
+    public function __construct()
+    {
+        $this->idUser = new ArrayCollection();
+    }
 
     public function getIdUser(): ?int
     {

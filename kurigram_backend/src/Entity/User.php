@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,7 +15,7 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id_user = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 20)]
     private ?string $name = null;
@@ -21,6 +23,22 @@ class User
     #[ORM\Column(type: Types::TEXT)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 180, unique: true )]
+    private array $roles = [];
+
+    #[ORM\OneToMany(mappedBy:'idUser',targetEntity: Posts::class)]
+    private Collection $posts;
+
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'idUser')]
+    #[ORM\JoinColumn(referencedColumnName:'id_event')]
+    private Collection $events;
+
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'idUser')]
+    #[ORM\JoinColumn(referencedColumnName:'id_message')]
+    private Collection $messages;
+
+    #[ORM\Column]
+    private ?string $password = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $phone = null;
@@ -28,17 +46,21 @@ class User
     #[ORM\Column]
     private ?bool $is_admin = null;
 
-    public function getName(): ?string
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy:'event')]
+    #[ORM\JoinColumn(referencedColumnName: 'id_event')]
+    private Collection $id_event;
+
+    public function __construct()
     {
-        return $this->name;
+        $this->posts = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
-    public function setName(string $name): self
+    public function getId()
     {
-        $this->name = $name;
-
-        return $this;
+        return $this->id;
     }
+
 
     public function getEmail(): ?string
     {
@@ -52,29 +74,6 @@ class User
         return $this;
     }
 
-    public function getIdUser(): ?int
-    {
-        return $this->id_user;
-    }
-
-    public function setIdUser(int $id_user): self
-    {
-        $this->id_user = $id_user;
-
-        return $this;
-    }
-
-    public function getPhone(): ?int
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(?int $phone): self
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
 
     public function isIsAdmin(): ?bool
     {
@@ -84,6 +83,100 @@ class User
     public function setIsAdmin(bool $is_admin): self
     {
         $this->is_admin = $is_admin;
+
+        return $this;
+    }
+
+    public function eraseCredentials()
+    {
+        
+    }
+
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPosts(Posts $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePosts(Posts $posts): self
+    {
+        if ($this->posts->removeElement($posts)) {
+            if ($posts->getIdUser() === $this) {
+                $posts->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getMessage(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addMessage(Message $messages): self
+    {
+        if (!$this->messages->contains($messages)) {
+            $this->messages->add($messages);
+            $messages->addIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $messages): self
+    {
+        if ($this->events->removeElement($messages)) {
+            $messages->removeIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
 
         return $this;
     }

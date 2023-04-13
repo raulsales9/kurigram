@@ -1,20 +1,65 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello KurigramController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/kurigram/kurigram_backend/src/Controller/KurigramController.php'|file_link(0) }}">src/Controller/KurigramController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/kurigram/kurigram_backend/templates/kurigram/index.html.twig'|file_link(0) }}">templates/kurigram/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% extends 'layout.html.twig' %}
+{% block content %}
+<main class="container mt-5">
+    <section>
+      <div class="row">
+        <div class="col-xl-2 col-lg-2"></div>
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mb-3 mt-3 bg-card text-white">
+          <h2 class=" mb-3 mt- text-center">This is the options pannel</h2>
+        </div>
+        <div class="col-xl-2 col-lg-2"></div>
+      </div>
+    </section>
+    <section class="row card-container mb-2">
+      <article class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+        <div class="card rounded">
+          <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <a href="" >USUARIOS</a>
+          </div>
+        </div>
+      </article>
+      <article class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+        <div class="card rounded">
+          <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <a href="" >PUBLICACIONES</a>
+          </div>
+        </div>
+      </article>
+      <article class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+        <div class="card rounded">
+          <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <a href="" >COMENTARIOS</a>
+          </div>
+        </div>
+      </article>
+      <article class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+        <div class="card rounded">
+          <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <a href="" >NOTICIAS</a>
+          </div>
+        </div>
+      </article>
+      <article class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+        <div class="card rounded">
+          <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <a href="" >IMAGENES DE PERFIL</a>
+          </div>
+        </div>
+      </article>
+      <article class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+        <div class="card rounded">
+          <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+          <div class="card-body text-center">
+            <a href="" >ESTADISTICAS</a>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
 {% endblock %}
+

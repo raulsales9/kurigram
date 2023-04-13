@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,9 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Event
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_event = null;
+    #[ORM\Column(name: "id")]
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
@@ -29,18 +30,25 @@ class Event
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $start_date = null;
 
+   #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'event')]
+    private Collection $idUser;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imagen = null;
 
-    
-
-    public function getIdEvent(): ?int
+    public function __construct()
     {
-        return $this->id_event;
+        $this->idUser = new ArrayCollection();
     }
 
-    public function setIdEvent(int $id_event): self
+    public function getId()
     {
-        $this->id_event = $id_event;
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }
@@ -101,6 +109,39 @@ class Event
     public function setStartDate(\DateTimeInterface $start_date): self
     {
         $this->start_date = $start_date;
+
+        return $this;
+    }
+
+    public function getIdUser(): Collection
+    {
+        return $this->idUser;
+    }
+
+    public function addIdUser(User $idUser): self
+    {
+        if (!$this->idUser->contains($idUser)) {
+            $this->idUser->add($idUser);
+        }
+
+        return $this;
+    }
+
+    public function removeIdUser(User $idUser): self
+    {
+        $this->idUser->removeElement($idUser);
+
+        return $this;
+    }
+
+    public function getImagen(): ?string
+    {
+        return $this->imagen;
+    }
+
+    public function setImagen(?string $imagen) :self
+    {
+        $this->imagen = $imagen;
 
         return $this;
     }
