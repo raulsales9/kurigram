@@ -33,9 +33,14 @@ class User
     #[ORM\JoinColumn(referencedColumnName:'id_event')]
     private Collection $events;
 
-    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'idUser')]
+    #[ORM\ManyToMany(targetEntity: Message::class, mappedBy: 'idUser')]
     #[ORM\JoinColumn(referencedColumnName:'id_message')]
     private Collection $messages;
+
+    #[ORM\ManyToMany(targetEntity: Follow::class, mappedBy: 'idUser')]
+    #[ORM\JoinColumn(referencedColumnName:'id_follow')]
+    private Collection $follow;
+
 
     #[ORM\Column]
     private ?string $password = null;
@@ -46,14 +51,13 @@ class User
     #[ORM\Column]
     private ?bool $is_admin = null;
 
-    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy:'event')]
-    #[ORM\JoinColumn(referencedColumnName: 'id_event')]
-    private Collection $id_event;
 
     public function __construct()
     {
+        $this->messages = new ArrayCollection();
         $this->posts = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->follow = new ArrayCollection();
     }
 
     public function getId()
@@ -114,6 +118,21 @@ class User
                 $posts->setIdUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
@@ -180,4 +199,33 @@ class User
 
         return $this;
     }
+
+    public function getFollow()
+    {
+        return $this->follow;
+    }
+    
+    public function addFollow(Follow $follow): self
+    {
+        if (!$this->follow->contains($follow)) {
+            $this->follow->add($follow);
+            $follow->addIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollow(follow $follow): self
+    {
+        if ($this->posts->removeElement($follow)) {
+            if ($follow->getIdUser() === $this) {
+                $follow->removeIdUser($this);
+            }
+        }
+
+        return $this;
+    }
+
+
+
 }

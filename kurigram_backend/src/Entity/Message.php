@@ -16,7 +16,10 @@ class Message
     #[ORM\Column(name: "id")]
     private ?int $id = null;
 
-    #[ORM\OneToMany(targetEntity: User::class, inversedBy: 'event')]
+    #[ORM\Column]
+    private ?string $text = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'message')]
     private Collection $idUser;
 
     public function __construct()
@@ -54,6 +57,18 @@ class Message
     public function removeIdUser(User $idUser): self
     {
         $this->idUser->removeElement($idUser);
+
+        return $this;
+    }
+
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    public function setText($text)
+    {
+        $this->text = $text;
 
         return $this;
     }

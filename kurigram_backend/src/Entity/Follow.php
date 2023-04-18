@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\FollowRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,7 +13,7 @@ class Follow
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id_user = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?int $followers = null;
@@ -22,8 +24,7 @@ class Follow
     #[ORM\Column]
     private ?int $posts = null;
 
-    
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'event')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'follow')]
     private Collection $idUser;
 
     public function __construct()
@@ -31,14 +32,14 @@ class Follow
         $this->idUser = new ArrayCollection();
     }
 
-    public function getIdUser(): ?int
+    public function getId()
     {
-        return $this->id_user;
+        return $this->id;
     }
-
-    public function setIdUser(int $id_user): self
+    
+    public function setId($id)
     {
-        $this->id_user = $id_user;
+        $this->id = $id;
 
         return $this;
     }
@@ -78,4 +79,28 @@ class Follow
 
         return $this;
     }
+
+
+    public function getIdUser(): Collection
+    {
+        return $this->idUser;
+    }
+
+    public function addIdUser(User $idUser): self
+    {
+        if (!$this->idUser->contains($idUser)) {
+            $this->idUser->add($idUser);
+        }
+
+        return $this;
+    }
+
+    public function removeIdUser(User $idUser): self
+    {
+        $this->idUser->removeElement($idUser);
+
+        return $this;
+    }
+
+    
 }

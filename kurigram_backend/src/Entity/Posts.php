@@ -32,7 +32,7 @@ class Posts
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\ManyToOne(inversedBy: 'files')]
+    #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: true, name: 'id_user')]
    private ?User $idUser = null;
 
