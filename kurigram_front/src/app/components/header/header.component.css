@@ -1,0 +1,23 @@
+
+ /* Text / Texto*/
+ 
+ 
+ /*Navbar*/
+ .navbar-item{
+     margin-right: 20px;
+ }
+ 
+ /* Layout / Maquetado */
+ header{
+     background-color: var(--darkblue);
+     height: 100px;
+ }
+ 
+ 
+ 
+ .img-header{
+     width: 71px;
+     height: 53px; 
+     margin-left: 15px;
+ }
+ 

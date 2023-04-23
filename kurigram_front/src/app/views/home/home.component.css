@@ -1,0 +1,102 @@
+main{
+    margin-top: 50px;
+    background-color: var(--white);
+}
+
+/*style section*/
+.section1{
+    background-color: var(--grey);
+    height: 700px;
+}
+
+.section2{
+    background-color: var(--grey);
+    height: 400px;
+}
+
+.section3{
+    background-color: var(--grey);
+    height: 700px;
+}
+
+.section4{
+    background-color: var(--grey);
+    height: 500px;
+    display: flex;
+    margin-top: 20px;
+}
+
+/*Jumbotron*/
+.jumbotron{
+    /* Founded at pexels.com without copyright permissions */
+    background: url("../../../assets/images/jumbotron/jumbotron_v1.jpg");
+    height: 600px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+    opacity: 0.9;
+}
+
+.div-text-jumbo{
+    background-color: var(--blue);
+    opacity: 0.8;
+}
+
+.textoseparado{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+/*Cards*/
+.imgCard img{
+    width: 156px;
+    height: 160px;
+}
+
+.card-container{
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+/*backgrounds*/
+.bg-text{
+   background: rgb(2,0,36);
+   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(196,196,245,1) 0%, rgba(0,212,255,1) 95%);
+}
+
+.bg-card{
+    background-color: var(--darkblue);
+}
+
+.bg-section{
+    background-color: var(--white);
+}
+.bg-to-to{
+    background-color: var(--blue);
+}
+
+.bg-header{
+    background-color: var(--darkblue);
+}
+
+.bg-footer{
+    background-color: var(--semidarkblue);
+}
+
+.bg-copyright{
+    background-color: var(--darkblue);
+}
+
+.row-color{
+    background-color: #1190CB;
+}
+
+.message{
+    background-color: var(--grey);
+}
+
+.grey{
+    background-color: var(--grey);
+}
