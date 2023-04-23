@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+/* Global colours / Colores generales */
+:root{
+    --darkblue: #0E2439;
+    --white: #FFF;
+    --grey:  #cac9c9;
+    --blue: #1190CB;
+    --semidarkblue: #0142f3bd;
+ }
+ 
+ 
+ /*  Fonts used / Fuentes utilizadas   */
+  @font-face{
+     font-family: roboto;
+     src: url("assets/fonts/Roboto-Black.ttf");
+ } 
+ 
+ @font-face{
+     font-family: poppins;
+     src: url("assets/fonts/Poppins-Black.ttf");
+ }
+ /*Login/signIn*/
+ .right{
+    background-color: #61ABD4;
+}
+
+form{
+    margin-top: 210px;
+}
