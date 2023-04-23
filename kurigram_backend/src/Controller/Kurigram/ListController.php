@@ -11,6 +11,7 @@ class ListController extends AbstractController
     #[Route('/kurigram/list', name: 'app_list')]
     public function index(): Response
     {
+        
         return $this->render('kurigram/listKurigram.html.twig', [
             'controller_name' => 'ListController',
         ]);
