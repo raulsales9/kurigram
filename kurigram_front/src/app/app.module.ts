@@ -11,6 +11,7 @@ import { LoginComponent } from './views/login/login.component';
 import { SigninComponent } from './views/signin/signin.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { FormsModule } from '@angular/forms';
+import { DataComponent } from './views/data/data.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     LoginComponent,
     SigninComponent,
-    ProfileComponent
+    ProfileComponent,
+    DataComponent
   ],
   imports: [
     BrowserModule,
