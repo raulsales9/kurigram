@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Kurigram;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/twig', name: 'app_')]
 class TwigController extends AbstractController
 {
-    #[Route('/twig', name: 'ListUser')]
+    /* #[Route('/twig', name: 'ListUser')]
     public function listUsers(EntityManagerInterface $entityManager): Response
     {
         $User = $entityManager->getRepository(User::class);
@@ -61,5 +61,5 @@ class TwigController extends AbstractController
         return $this->render('User/AdminDetailPanel.html.twig', [
             'detalleClient' => $data 
         ]);
-    }
+    } */
 }
