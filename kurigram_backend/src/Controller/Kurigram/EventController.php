@@ -29,7 +29,7 @@ class EventController extends AbstractController
     #[Route('/insertEvent', name: 'insert_event')]
     public function insert(Request $request, EventRepository $repository) : Response {
         if (count($request->request->all())) {
-            $request->insert($request);
+            $repository->insert($request);
         }
         return $this->render('/event/insertEvent.html.twig');
     }
