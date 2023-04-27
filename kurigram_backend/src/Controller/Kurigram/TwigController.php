@@ -18,10 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/twig', name: 'app_')]
 class TwigController extends AbstractController
 {
-     #[Route('/listUser/{page}', name: 'ListUser')]
+     #[Route('/listUser/{page?}', name: 'ListUser')]
     public function listUsers(?int $page, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
-        $User = $entityManager->getRepository(User::class);
+        $User = $entityManager->getRepository(User::class)->findAll();
         $data = [];
         for($i = 0; $i < count($User); $i++){
             $data[$i] = [
@@ -31,13 +31,13 @@ class TwigController extends AbstractController
                 "roles" => ($User[$i]->getRoles()[0] === "USER") ? "Usuario" : "Administrador",
             ];
         }
-        return $this->render('twig/index.html.twig', [
+        return $this->render('kurigram/User/AdminList.html.twig', [
             'data' => $data,
             'page' => $this->getLastPage($page, $session)
         ]);
     }
 
-    #[Route('/detailUser/{usuario?null}', name: 'ListUser')]
+   /*  #[Route('/detailUser/{usuario?null}', name: 'DetailUser')]
     public function detailUser(EntityManagerInterface $entityManager, int $usuario): Response
     {
         $User = $entityManager->getRepository(User::class)->find($usuario);
@@ -71,7 +71,7 @@ class TwigController extends AbstractController
         return $this->render('User/AdminDetailPanel.html.twig', [
             'detalleClient' => $data 
         ]);
-    } 
+    }  */
 
     #[Route('/insertUser', name: 'insertUser')]
     public function insert(EntityManagerInterface $gestor, Request $request): Response

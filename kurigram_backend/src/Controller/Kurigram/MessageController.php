@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PostsController extends AbstractController
+class MessageController extends AbstractController
 {
-    #[Route('/posts', name: 'app_Post')]
+    #[Route('/message', name: 'app_Messages')]
     public function index(): Response
     {
-        return $this->render('posts/index.html.twig', [
-            'controller_name' => 'PostsController',
+        return $this->render('message/index.html.twig', [
+            'controller_name' => 'MessageController',
         ]);
     }
 }
