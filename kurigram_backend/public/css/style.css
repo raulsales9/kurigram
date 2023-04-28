@@ -114,3 +114,12 @@ main{
     background-color: var(--darkblue);
 }
 
+.eventList{
+    background-color: var(--darkblue);
+    height: 200px;
+    margin-bottom: 100px;
+}
+
+.bg-grey{
+    background-color: grey;
+}
