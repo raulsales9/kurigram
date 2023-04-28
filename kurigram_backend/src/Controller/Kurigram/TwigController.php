@@ -29,6 +29,7 @@ class TwigController extends AbstractController
                 "name"=> $User[$i]->getName(),
                 "email" => $User[$i]->getEmail(),
                 "roles" => ($User[$i]->getRoles()[0] === "USER") ? "Usuario" : "Administrador",
+                "phone" => $User[$i]->getPhone()
             ];
         }
         return $this->render('kurigram/User/AdminList.html.twig', [
@@ -37,14 +38,13 @@ class TwigController extends AbstractController
         ]);
     }
 
-   /*  #[Route('/detailUser/{usuario?null}', name: 'DetailUser')]
+     #[Route('/detailUser/{usuario?null}', name: 'DetailUser')]
     public function detailUser(EntityManagerInterface $entityManager, int $usuario): Response
     {
         $User = $entityManager->getRepository(User::class)->find($usuario);
         $data = [
             "id" => $User->getId(),
             "name" => $User->getName(),
-            "surnames" => $User->getSurnames(),
             "email" => $User->getEmail(),
             "roles" => ($User->getRoles()[0] === "USER") ? "Usuario" : "Administrador",
             "events" => [],
@@ -52,26 +52,17 @@ class TwigController extends AbstractController
             "messages" => []
           ];
 
-          for($i = 0; $i < count($User->getFiles()); $i++){
-            $data["files"][$i] = [
-                "idFile" => $User->getFiles()[$i]->getIdFile(),
-                "name" => $User->getfiles()[$i]->getName(),
-                "type" => $User->getFiles()[$i]->getType(),
-                "isSubmited" => html_entity_decode(($User->getFiles()[$i]->isIsSubmited()) ? '&#x2713;' : "")
-            ];
-          }
-
-          for($i = 0; $i < count($User->getEvents()); $i++){
+          for($i = 0; $i < count($User->getEvent()); $i++){
             $data["events"][$i] = [
-                "id" => $User->getEvents()[$i]->getId(),
-                "name" => $User->getEvents()[$i]->getName(),
-                "place" => $User->getEvents()[$i]->getPlace()
+                "id" => $User->getEvent()[$i]->getId(),
+                "name" => $User->getEvent()[$i]->getName(),
+                "place" => $User->getEvent()[$i]->getPlace()
             ];
           }
         return $this->render('User/AdminDetailPanel.html.twig', [
             'detalleClient' => $data 
         ]);
-    }  */
+    }  
 
     #[Route('/insertUser', name: 'insertUser')]
     public function insert(EntityManagerInterface $gestor, Request $request): Response
@@ -80,7 +71,7 @@ class TwigController extends AbstractController
         if (count($container) > 1) {
              $gestor->getRepository(User::class)->insertUser($request); 
         }
-        return $this->render('User/AdminInsertPanel.html.twig', []);
+        return $this->render('/kurigram/User/AdminInsert.html.twig', []);
 
     }
 

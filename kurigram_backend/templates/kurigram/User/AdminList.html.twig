@@ -12,7 +12,7 @@
 			{% for task in data %}
 				{% if loop.index >= lowerLimit and loop.index <= upperLimit %} 
 				<article class="eventList">
-					<a class="text-decoration-none nameUser fs-3 me-3" href="/twig/detailUser/{{task["id"]}}" >{{ task["name"] }} {{task["surnames"]}}</a>
+					<a class="text-decoration-none nameUser fs-3 me-3" href="/twig/detailUser/{{task["id"]}}" >{{ task["name"] }} </a>
 					<span class="text-muted ms-3">{{task["email"] }}</span>
 					<span class="text-muted ms-3">{{task["phone"] }}</span>
 					<span class="text-muted ms-3">- {{task["roles"] }} -</span>

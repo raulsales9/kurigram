@@ -39,6 +39,24 @@ class PostsRepository extends ServiceEntityRepository
         }
     }
 
+    public function insertPost(){
+
+    }
+
+    public function insert($data) : void {
+
+        $Post = new Posts;
+        $Post
+            ->setCreatedAt($data["created_at"])
+            ->setText($data["text"])
+            ->setIsSubmitted(["true"])
+            ->setfile($data["file"])
+            ->setTitle($data["title"]);
+
+        $this->save($Post, true);
+    }
+
+
 //    /**
 //     * @return Posts[] Returns an array of Posts objects
 //     */

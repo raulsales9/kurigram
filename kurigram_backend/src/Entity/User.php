@@ -9,7 +9,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
 class User
 {
     #[ORM\Id]
@@ -48,8 +47,6 @@ class User
     #[ORM\Column(nullable: true)]
     private ?int $phone = null;
 
-    #[ORM\Column]
-    private ?bool $is_admin = null;
 
 
     public function __construct()
@@ -78,18 +75,6 @@ class User
         return $this;
     }
 
-
-    public function isIsAdmin(): ?bool
-    {
-        return $this->is_admin;
-    }
-
-    public function setIsAdmin(bool $is_admin): self
-    {
-        $this->is_admin = $is_admin;
-
-        return $this;
-    }
 
     public function eraseCredentials()
     {

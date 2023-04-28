@@ -25,10 +25,11 @@ class ApiController extends AbstractController
         $data = [
             "name" => $getUser->getName(),
             "Email" => $getUser->getEmail(),
+            "phone" => $getUser->getPhone(),
             "events" => []
         ];
 
-        for ($i = 0; $i < count($getUser->getEvents()); $i++) {
+        for ($i = 0; $i < count($getUser->getEvent()); $i++) {
             $data["events"][$i] = "localhost:8000/api/events/" . $getUser->getEvents()[$i]->getId();
         }
         return new JsonResponse($data, Response::HTTP_OK);
