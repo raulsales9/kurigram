@@ -59,7 +59,7 @@ class TwigController extends AbstractController
                 "place" => $User->getEvent()[$i]->getPlace()
             ];
           }
-        return $this->render('User/AdminDetailPanel.html.twig', [
+        return $this->render('/kurigram/User/AdminDetail.html.twig', [
             'detalleClient' => $data 
         ]);
     }  
@@ -94,7 +94,7 @@ class TwigController extends AbstractController
         }
 
         $user = $gestor->getRepository(User::class)->find($usuario);
-        return $this->render('User/AdminUpdatePanel.html.twig', [
+        return $this->render('/kurigram/User/AdminUpdate.html.twig', [
             "user" => $user
         ]);
     }

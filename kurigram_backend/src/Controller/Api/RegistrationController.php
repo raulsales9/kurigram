@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+#[Route('/api')]
 class RegistrationController extends AbstractController
 {
     #[Route('/insert/user', name:'insertUser_api', methods:["POST"])]

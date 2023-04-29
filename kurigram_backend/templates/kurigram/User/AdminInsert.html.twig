@@ -1,43 +1,45 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-	<section id="content">	
-	<div class="container">
+	<section id="content" class="mb-5">	
+	<div class="container mb-5">
 	<a class="btn btn-primary" href="/twig/listUser/">⇦</a>
 		<h2>Nuevo Usuario</h2>
 			<form method="post" action="" class="row">
 				<article class="eventList">
-				<label for="email" class="form-label">Email del usuario</label>
 				<div  class="mb-3 col-lg-8">
-					<input name="email" type="text" class="form-control" value=""/>
+					<label for="email" class="form-label">Email del usuario
+						<input name="email" type="text" class="form-control" value=""/>
+					</label>
+				</div>
+				<div  class="mb-3 col-lg-8">
+					<label for="name" class="form-label">Nombre del usuario 
+						<input name="name" type="text" class="form-control" value=""/>
+					</label>
 				</div>
 
-				<label for="name" class="form-label">Nombre del usuario </label>
 				<div  class="mb-3 col-lg-8">
-					<input name="name" type="text" class="form-control" value=""/>
-				</div>
-
-				
-				<label for="roles" class="form-label">Rol del usuario</label>
-					<div  class="mb-3 col-lg-8">
+					<label for="roles" class="form-label">Rol del usuario
 					<select class="form-select" aria-label="Default select example" name="roles">
 						<option value='["USER"]' selected>Abre este menú para elegir un rol</option>
 						<option value='["USER"]'>Usuario</option>
 						<option value='["ADMIN"]'>Administrador</option>
 					</select>
+					</label>
 				</div>
-
-				<label for="phone" class="form-label">Telefono del usuario</label>
 				<div  class="mb-3 col-lg-8">
-					<input name="phone" type="text" class="form-control" value=""/>
+					<label for="phone" class="form-label">Telefono del usuario
+						<input name="phone" type="text" class="form-control" value=""/>
+					</label>
 				</div>
 
-				<label for="password" class="form-label">Contraseña del usuario</label>
-				<div  class="mb-3 col-lg-8">	
-					<input name="password" type="password" class="form-control" value=""/>
+				<div  class="mb-3 col-lg-8">
+					<label for="password" class="form-label">Contraseña del usuario
+						<input name="password" type="password" class="form-control" value=""/>
+					</label>
 				</div>
-
-					<div >
+				
+				<div class="col-lg-3 col-md-4 mb-5" >
 					<input type="submit" class="btn btn-primary mb-3 col-lg-3" name="submit" value="Crear usuario"/>
 				</div>
 

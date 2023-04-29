@@ -15,19 +15,27 @@ use Symfony\Component\HttpFoundation\Request;
 class PostsController extends AbstractController
 {
     #[Route('/listPosts/{page?}', name: 'app_Post')]
-    public function listEvents(?int $page, EntityManagerInterface $entityManager, SessionInterface $session): Response
+    public function listPosts(?int $page, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
-        $Post = $entityManager->getRepository(Posts::class);
-        $curDate = new \DateTime('now');
+        $Post = $entityManager->getRepository(Posts::class)->findAll();
+        $data = [];
+        for($i = 0; $i < count($Post); $i++){
+          $data[$i] = [
+              "idPost" => $Post[$i]-> getIdPost(),
+              "likes"=> $Post[$i]->getLikes(),
+              "text" => $Post[$i]->getText(),
+              "isSubmitted" => ($Post[$i]->getRoles()[0] === "Post") ? "Usuario" : "Administrador",
+              "phone" => $Post[$i]->getPhone()
+          ];
+      }
         return $this->render('/kurigram/Post/ListPost.html.twig', [
-            'post' => $Post->findAll(),
+            'post' => $Post,
             "page" => $this->getLastPage($page, $session),
-            'curDate' => $curDate
         ]);
     }
 
-    #[Route('/posts/{id}', name: 'app_DetailPost')]
-    public function index( EntityManagerInterface $entityManager, ?int $id): Response
+   /*  *//*  #[Route('/posts/{id}', name: 'app_DetailPost')]
+    public function detailSinglePost( EntityManagerInterface $entityManager, ?int $id): Response
     {
         $post = $entityManager->getRepository(Posts::class)->find($id);
         $custom_post = $entityManager->getRepository(Posts::class)->findPost($id);
@@ -44,8 +52,8 @@ class PostsController extends AbstractController
   
         $repository->insert($request);
       }
-      return $this->render('/kurigram/Events/insertEvents.html.twig', []);
-    }
+      return $this->render('/kurigram/Post/InsertPost.html.twig', []);
+    } */
 
     private function getLastPage($page, $session): int
     {

@@ -6,10 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -122,10 +125,14 @@ class User
         return $this;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
 
     public function getMessage(): Collection
     {
-        return $this->events;
+        return $this->messages;
     }
 
     public function addMessage(Message $messages): self
@@ -171,21 +178,44 @@ class User
         return $this;
     }
 
+    public function getEvent(): Collection
+    {
+        return $this->events;
+    }
 
-    public function getPassword()
+    public function addEvent(Event $events): self
+    {
+        if (!$this->events->contains($events)) {
+            $this->events->add($events);
+            $events->addIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $events): self
+    {
+        if ($this->events->removeElement($events)) {
+            $events->removeIdUser($this);
+        }
+
+        return $this;
+    } 
+
+    public function getPassword(): string
     {
         return $this->password;
     }
 
 
-    public function setPassword($password)
+    public function setPassword($password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getFollow()
+    public function getFollow() :Collection
     {
         return $this->follow;
     }
@@ -212,5 +242,5 @@ class User
     }
 
 
-
 }
+
