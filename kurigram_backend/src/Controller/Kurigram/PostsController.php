@@ -3,49 +3,33 @@
 namespace App\Controller\Kurigram;
 
 use App\Entity\Posts;
+use App\Entity\User;
 use App\Repository\PostsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpFoundation\Request;
 
-#[Route("/twig")]
+
+#[Route("/twig", name: "app_")]
 class PostsController extends AbstractController
 {
-    #[Route('/listPosts/{page?}', name: 'app_Post')]
+
+  /* Find all of the posts */ 
+    #[Route('/listPosts/{page?}', name: 'Post')]
     public function listPosts(?int $page, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $Post = $entityManager->getRepository(Posts::class)->findAll();
-        $data = [];
-        for($i = 0; $i < count($Post); $i++){
-          $data[$i] = [
-              "idPost" => $Post[$i]-> getIdPost(),
-              "likes"=> $Post[$i]->getLikes(),
-              "text" => $Post[$i]->getText(),
-              "isSubmitted" => ($Post[$i]->getRoles()[0] === "Post") ? "Usuario" : "Administrador",
-              "phone" => $Post[$i]->getPhone()
-          ];
-      }
-        return $this->render('/kurigram/Post/ListPost.html.twig', [
-            'post' => $Post,
+        return $this->render('/kurigram/Post/ListAllPost.html.twig', [
+            'posts' => $Post,
             "page" => $this->getLastPage($page, $session),
         ]);
     }
 
-   /*  *//*  #[Route('/posts/{id}', name: 'app_DetailPost')]
-    public function detailSinglePost( EntityManagerInterface $entityManager, ?int $id): Response
-    {
-        $post = $entityManager->getRepository(Posts::class)->find($id);
-        $custom_post = $entityManager->getRepository(Posts::class)->findPost($id);
-        return $this->render('/kurigram/Post/ListPost', [
-            'post' => $post,
-            'custom_post' => $custom_post
-        ]);
-    }
 
-    #[Route('/insertPosts', name: 'insert_event')]
+    #[Route('/insertPosts', name: 'insert_posts')]
     public function insert(Request $request, PostsRepository $repository) : Response {
   
       if (count($request->request->all())){
@@ -53,7 +37,7 @@ class PostsController extends AbstractController
         $repository->insert($request);
       }
       return $this->render('/kurigram/Post/InsertPost.html.twig', []);
-    } */
+    } 
 
     private function getLastPage($page, $session): int
     {

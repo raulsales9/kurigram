@@ -3,10 +3,10 @@
        
   <section id="content">
     <div class="container">
-	<a class="btn btn-primary" href="/twig/listEvent/">⇦</a>
-	<h1>Evento</h1>
+	<a class="btn btn-primary" href="{{path('app_Post')}}">⇦</a>
+	<h1 class="text-uppercase">Nuevo Post : </h1>
 					
-					<form method="post" action="" class="row" enctype="multipart/form-data">
+					<form method="post" action="{{path('app_insert_posts')}}" class="row" enctype="multipart/form-data">
 					<article class="eventList">
 					<label class="form-label" for="name"> Created at: </label>
 					<div  class="mb-3 col-lg-8">

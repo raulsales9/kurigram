@@ -38,6 +38,19 @@ class TwigController extends AbstractController
         ]);
     }
 
+    
+    /*find all the posts of the user*/ 
+    #[Route('/userPosts/{id}', name: 'DetailPost')]
+    public function detailSinglePost( EntityManagerInterface $entityManager, ?int $id): Response
+    {
+        $user_post = $entityManager->getRepository(User::class)->find($id);
+        $post = $user_post->getPosts();
+        return $this->render('/kurigram/User/ListUserPosts.html.twig', [
+            'posts' => $post,
+            'user_post' => $user_post
+        ]);
+    }
+
      #[Route('/detailUser/{usuario?null}', name: 'DetailUser')]
     public function detailUser(EntityManagerInterface $entityManager, int $usuario): Response
     {

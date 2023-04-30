@@ -16,8 +16,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PostsRepository extends ServiceEntityRepository
 {
+    private $doctrine;
     public function __construct(ManagerRegistry $registry)
     {
+        $this->doctrine = $registry;
         parent::__construct($registry, Posts::class);
     }
 
@@ -39,22 +41,31 @@ class PostsRepository extends ServiceEntityRepository
         }
     }
 
-    public function insertPost(){
-
+    public function insert($data) : void
+    {
+        $Posts = new Posts;
+        $file = $data->files->get('imagen');
+        $startDate = new \DateTime($data->request->get("created_at"));
+        $extension = "." . $file->getClientOriginalExtension();
+        $getIds = $this->doctrine->getRepository(Posts::class)->findAll();
+        $maxId = 0;
+        for ($i=0; $i < count($getIds); $i++) { 
+            if ($getIds[$i]->getId() > $maxId) {
+                $maxId = $getIds[$i]->getId(); 
+            }
+        }
+        $maxId++;
+       $newId = $maxId;
+        $Posts
+            ->setIdPost($newId)
+            ->setText($data->request->get("text"))
+            ->setCreatedAt($startDate)
+            ->setTitle($data->request->get("title"))
+            ->setFile($file . $extension);
+        $this->doctrine->getManager()->persist($Posts);
+        $this->doctrine->getManager()->flush();
     }
-
-    public function insert($data) : void {
-
-        $Post = new Posts;
-        $Post
-            ->setCreatedAt($data["created_at"])
-            ->setText($data["text"])
-            ->setIsSubmitted(["true"])
-            ->setfile($data["file"])
-            ->setTitle($data["title"]);
-
-        $this->save($Post, true);
-    }
+  
 
 
 //    /**

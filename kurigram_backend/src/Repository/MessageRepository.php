@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -38,6 +39,20 @@ class MessageRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findChatMessagesByUser(User $user)
+{
+    $qb = $this->createQueryBuilder('m');
+    $qb->select('m')
+        ->join('m.idUser', 'u')
+        ->where(':user MEMBER OF m.idUser')
+        ->andWhere(':userId MEMBER OF m.idUser') // Agrega esta condición para filtrar por el usuario actual
+        ->orderBy('m.createdAt', 'ASC')
+        ->setParameter('user', $user)
+        ->setParameter('userId', $user->getId());
+        
+    return $qb->getQuery()->getResult();
+}
 
 //    /**
 //     * @return Message[] Returns an array of Message objects

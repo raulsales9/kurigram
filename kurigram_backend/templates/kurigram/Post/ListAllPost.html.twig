@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+<a href="{{path('app_insert_posts')}}">
+{% for post in posts %}
+    {{post.title}}
+    {{post.text}}
+{% endfor %}
+    
+{% endblock %}
