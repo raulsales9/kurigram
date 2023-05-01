@@ -6,9 +6,9 @@
 				
 				<form method="post">
                 {% if error %}
-                    <div class="alert">
-                        {{ error.messageKey|trans(error.messageData, 'security') }}
-                    </div>
+                     <div class="alert">
+            {{ error.message|trans(error.messageData, 'security') }}
+        </div>
                 {% endif %}
                 {% if app.user %}
                     <div class="mb-3 mt-3">
