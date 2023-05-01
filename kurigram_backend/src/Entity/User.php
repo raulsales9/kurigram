@@ -25,7 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 180, unique: true )]
+    #[ORM\Column]
     private array $roles = [];
 
     #[ORM\OneToMany(mappedBy:'idUser',targetEntity: Posts::class)]
