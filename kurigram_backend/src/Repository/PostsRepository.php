@@ -61,7 +61,9 @@ class PostsRepository extends ServiceEntityRepository
             ->setText($data->request->get("text"))
             ->setCreatedAt($startDate)
             ->setTitle($data->request->get("title"))
-            ->setFile($file . $extension);
+            ->setFile($file . $extension)
+            ->setLikes(0) // Set a default value for likes
+            ->setIsSubmitted(true);
         $this->doctrine->getManager()->persist($Posts);
         $this->doctrine->getManager()->flush();
     }

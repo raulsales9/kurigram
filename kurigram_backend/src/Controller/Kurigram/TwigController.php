@@ -98,6 +98,8 @@ class TwigController extends AbstractController
         return $this->redirect('/twig/listUser');
     }
 
+    
+
     #[Route('/updateUser/{usuario}', name: 'updateUser')]
     public function update(EntityManagerInterface $gestor, Request $request, int $usuario): Response
     {

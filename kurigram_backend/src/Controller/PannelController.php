@@ -8,15 +8,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PannelController extends AbstractController
 {
-    #[Route('/', name: 'app_main')]
-    public function index(): Response
-    { 
-        /* $securityContext = $this->container->get('security.authorization_checker');
-        if(!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')){
-            return $this->redirectToRoute('app_login');
-        } */ 
-        return $this->render('main.html.twig', [
-           
-        ]);
-    }
+        #[Route('/', name: 'app_main')]
+        public function index(): Response
+        { 
+            $securityContext = $this->container->get('security.authorization_checker');
+            if(!$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')){
+                return $this->redirectToRoute('app_login');
+            } 
+            
+            return $this->render('/kurigram/index.html.twig');
+        }
 }
+

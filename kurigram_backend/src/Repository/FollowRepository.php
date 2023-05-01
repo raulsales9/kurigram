@@ -39,6 +39,14 @@ class FollowRepository extends ServiceEntityRepository
         }
     }
 
+    public function isFollowing(int $userId, int $followerId): bool
+    {
+        $follow = $this->findOneBy(['following' => $userId, 'followers' => $followerId]);
+
+        return $follow !== null;
+    }
+
+
 //    /**
 //     * @return Follow[] Returns an array of Follow objects
 //     */
