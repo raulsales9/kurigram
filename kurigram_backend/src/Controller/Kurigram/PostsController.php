@@ -24,12 +24,10 @@ class PostsController extends AbstractController
   public function listPosts(?int $page, EntityManagerInterface $entityManager, SessionInterface $session, Security $security): Response
       {
           $post = $entityManager->getRepository(Posts::class)->findAll();
-        /*   $user = $security->getUser(); */
   
           return $this->render('/kurigram/Post/ListAllPost.html.twig', [
+              'user' => $security->getUser(),
               'posts' => $post,
-              /* 'user_id' => $user->getId(),
-              'user_name' => $user->getName(), */
               "page" => $this->getLastPage($page, $session),
           ]);
       }
