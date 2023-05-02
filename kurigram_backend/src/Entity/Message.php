@@ -31,6 +31,11 @@ class Message
     #[ORM\Column(type: "datetime", nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+   private $sender;
+
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();

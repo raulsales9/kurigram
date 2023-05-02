@@ -14,11 +14,11 @@ class Conversation
     #[ORM\Column(name: "id")]
     private ?int $id = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class)]
-    #[ORM\JoinTable(name: "conversation_user")]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'conversations')]
+    #[ORM\JoinTable(name: 'conversation_user')]
     private Collection $users;
 
-    #[ORM\OneToMany(mappedBy: "conversation", targetEntity: Message::class)]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'conversation')]
     private Collection $messages;
 
     #[ORM\Column(type: "datetime")]
@@ -39,36 +39,36 @@ class Conversation
         return $this->id;
     }
 
-    public function getUsers(): Collection
+   /*  public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUsers(User $user): self
+    public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->addConversations($this);
+            $user->addConversation($this);
         }
 
         return $this;
     }
 
-    public function removeUsers(User $user): self
+    public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
-            $user->removeConversations($this);
+            $user->removeConversation($this);
         }
 
         return $this;
-    }
+    } */
 
     public function getMessages(): Collection
     {
         return $this->messages;
     }
 
-    public function addMessages(Message $message): self
+    public function addMessage(Message $message): self
     {
         if (!$this->messages->contains($message)) {
             $this->messages->add($message);
@@ -78,12 +78,10 @@ class Conversation
         return $this;
     }
 
-    public function removeMessages(Message $message): self
+    public function removeMessage(Message $message): self
     {
         if ($this->messages->removeElement($message)) {
-            if ($message->getConversation() === $this) {
-                $message->setConversation(null);
-            }
+            $message->setConversation(null);
         }
 
         return $this;
