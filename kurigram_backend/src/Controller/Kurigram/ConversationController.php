@@ -11,7 +11,7 @@ class ConversationController extends AbstractController
     #[Route('/conversation', name: 'app_conversation')]
     public function index(): Response
     {
-        return $this->render('conversation/index.html.twig', [
+        return $this->render('/kurigram/conversation/index.html.twig', [
             'controller_name' => 'ConversationController',
         ]);
     }
