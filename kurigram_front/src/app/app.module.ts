@@ -11,8 +11,8 @@ import { LoginComponent } from './views/login/login.component';
 import { SigninComponent } from './views/signin/signin.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { FormsModule } from '@angular/forms';
-import { DataComponent } from './views/data/data.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EventComponent } from './views/events/event/event.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     SigninComponent,
     ProfileComponent,
-    DataComponent
+    EventComponent
   ],
   imports: [
     BrowserModule,

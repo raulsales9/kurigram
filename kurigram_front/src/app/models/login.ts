@@ -1,16 +1,17 @@
-export interface User{
-    name: string,
-    email: string,
-    phone: string;
-    events: any[]
+export interface Login {
+    email: string;
+    user:  string;
+    rol:   string;
+    id:    string;
 }
+
 export class Convert {
-    public static toWelcome(json: string): User {
-        return cast(JSON.parse(json), r("Welcome"));
+    public static toLogin(json: string): Login {
+        return cast(JSON.parse(json), r("Login"));
     }
 
-    public static welcomeToJson(value: User): string {
-        return JSON.stringify(uncast(value, r("Welcome")), null, 2);
+    public static LoginToJson(value: Login): string {
+        return JSON.stringify(uncast(value, r("Login")), null, 2);
     }
 }
 
@@ -164,10 +165,9 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-    "Welcome": o([
-        { json: "name", js: "name", typ: "" },
-        { json: "Email", js: "Email", typ: "" },
-        { json: "phone", js: "phone", typ: "" },
-        { json: "events", js: "events", typ: a("any") },
+    "Login": o([
+        { json: "email", js: "email", typ: "" },
+        { json: "user", js: "user", typ: "" },
+        { json: "rol", js: "rol", typ: "" },
     ], false),
 };
