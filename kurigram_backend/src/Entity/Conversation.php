@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
-use App\Repository\ConversationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ConversationRepository::class)]
@@ -17,29 +15,36 @@ class Conversation
     private ?int $id = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'conversations')]
+    #[ORM\JoinTable(name: 'conversation_user')]
     private Collection $users;
 
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'conversation', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'conversation')]
     private Collection $messages;
+
+    #[ORM\Column(type: "datetime")]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: "datetime", nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
-
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsers(): Collection
+   /*  public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUsers(User $user): self
+    public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
@@ -49,14 +54,14 @@ class Conversation
         return $this;
     }
 
-    public function removeUsers(User $user): self
+    public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
             $user->removeConversation($this);
         }
 
         return $this;
-    }
+    } */
 
     public function getMessages(): Collection
     {
@@ -76,10 +81,32 @@ class Conversation
     public function removeMessage(Message $message): self
     {
         if ($this->messages->removeElement($message)) {
-            if ($message->getConversation() === $this) {
-                $message->setConversation(null);
-            }
+            $message->setConversation(null);
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

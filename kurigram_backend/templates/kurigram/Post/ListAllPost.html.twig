@@ -7,24 +7,36 @@
 {% if not posts %}
   <h3>No hay ningún post disponible</h3>
 {% else %}
+   
+  {% set elementsPerPage = 1 %}
+			{% set lowerLimit = (page -1) * elementsPerPage + 1 %}
+			{% set upperLimit = page * elementsPerPage %} 
+			 {% for post in posts %}
+				{% if loop.index >= lowerLimit and loop.index <= upperLimit %} 
+    <div class="card card-rounded text-center mb-5" style="width: 400px; height: 300px; border: 2px solid black; margin-left: 200px">
   
-  {% for post in posts %}
-    <div class="card card-rounded" style="width: 400px; height: 300px; border: 2px solid black">
+	{#    {% if post.idUser is defined %}
+    <h6 class="card-subtitle mb-2 text-muted">
+        Publicado por {{ user.id }} (id: {{ user.id }})
+    </h6>
+{% endif %} #}
       {% if post.file %}
         <img src="{{ asset('uploads/' ~ post.file) }}" alt="imagen del post" class="card-img-top" style="height: 200px; object-fit: cover;">
       {% endif %}
       <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <p class="card-text">{{ post.text }}</p>
+        <h5 class="card-title">Titulo: {{ post.title }}</h5>
+		<h6 class="card-subtitle mb-2 text-muted">
+    
+        <p class="card-text">La descripcion es: {{ post.text }}</p>
         <p class="card-text">{{ post.createdAt|date('d-m-Y H:i') }}</p>
-        <p class="card-text">{{post.likes}}</p>
+        <p class="card-text">La publicación tiene: {{post.likes}} likes</p>
         {# <a href="{{ path('app_like_post', {'id': post.idPost}) }}" class="btn btn-primary">Me gusta ({{ post.likes }})</a>
         <a href="{{ path('app_dislike_post', {'id': post.idPost}) }}" class="btn btn-primary">No me gusta ({{ post.dislikes }})</a> #}
       </div>
     </div>
-    {% endfor %}
+ 
   {% endif %} 
-	
+	{% endfor %}
 	<div class="text-center"> {% set totalPages = (((posts|length)/elementsPerPage)|round(0, 'ceil')) %}
 		{% if page > 1 %}
 			<a href="{{ path('app_Post',{'page':1}) }}">&lt;&lt;</a>
@@ -49,7 +61,6 @@
 		{% endif %}</div>
 		
 {% endif %}
-
 </div>
 
 {% endblock %}
