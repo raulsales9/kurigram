@@ -22,9 +22,9 @@
         <a href="{{ path('app_dislike_post', {'id': post.idPost}) }}" class="btn btn-primary">No me gusta ({{ post.dislikes }})</a> #}
       </div>
     </div>
- 
+    {% endfor %}
   {% endif %} 
-	{% endfor %}
+	
 	<div class="text-center"> {% set totalPages = (((posts|length)/elementsPerPage)|round(0, 'ceil')) %}
 		{% if page > 1 %}
 			<a href="{{ path('app_Post',{'page':1}) }}">&lt;&lt;</a>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PostsComponent } from '../posts/posts.component';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
+text: string = "";
+user: string ="Juan";
 }

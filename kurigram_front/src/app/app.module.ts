@@ -13,6 +13,7 @@ import { ProfileComponent } from './views/profile/profile.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EventComponent } from './views/events/event/event.component';
+import { PostsComponent } from './views/posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { EventComponent } from './views/events/event/event.component';
     LoginComponent,
     SigninComponent,
     ProfileComponent,
-    EventComponent
+    EventComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,

@@ -4,9 +4,10 @@ import { HttpClient } from '@angular/common/http';
 
 import { Events } from '../models/events';
 import { Login } from '../models/login';
-import { Registry } from '../interfaces/registry';
+import { Registry } from '../models/registry';
 import { User } from '../models/user';
 import { AsistEvent } from '../models/AsistEvent';
+import { Post } from '../models/post';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class RequestService {
   user = "http://localhost:8000/api/users";
   update = "http://localhost:8000/api/update/user";
   asistant = "http://localhost:8000/api/update/events"; 
+  posts = "http://localhost:8000/api/posts";
 
   public getLogs($email : string, $password : string) : Observable<Login> {
     return this.http.post<Login>(this.login, { email: $email, password: $password});
@@ -28,6 +30,10 @@ export class RequestService {
 
   public getEvents() : Observable<Events[]> {
     return this.http.get<Events[]>(this.events)
+  }
+
+  public getPosts() {
+    return this.http.get<Post[]>(this.posts);
   }
 
   public registration(email : string, name : string,password : string, phone : string) : Observable<Registry> {
