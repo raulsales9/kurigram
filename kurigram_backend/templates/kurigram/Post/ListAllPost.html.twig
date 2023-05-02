@@ -1,8 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-
-<a class="btn btn-primary" href="{{ path('app_insert_posts') }}">Crear nuevo post</a>
+<div class="container">
+  <a class="btn btn-primary mt-5 mb-5" style="margin-left: 200px" href="{{ path('app_insert_posts') }}">Crear nuevo post</a>
 
 {% if not posts %}
   <h3>No hay ningún post disponible</h3>
@@ -22,7 +22,34 @@
         <a href="{{ path('app_dislike_post', {'id': post.idPost}) }}" class="btn btn-primary">No me gusta ({{ post.dislikes }})</a> #}
       </div>
     </div>
-  {% endfor %}
+ 
+  {% endif %} 
+	{% endfor %}
+	<div class="text-center"> {% set totalPages = (((posts|length)/elementsPerPage)|round(0, 'ceil')) %}
+		{% if page > 1 %}
+			<a href="{{ path('app_Post',{'page':1}) }}">&lt;&lt;</a>
+			<a href="{{ path('app_Post',{'page':page - 1}) }}">&lt;</a>
+		{% else %}
+			<span>&lt;&lt;</span>
+			<span>&lt;</span>
+		{% endif %}
+		{% for pageButton in 1..totalPages %}
+			{% if pageButton == page%}
+				<span>{{ pageButton }}</span>
+			{% else %}
+				<a href="{{ path('app_Post',{'page':pageButton}) }}">{{ pageButton }}</a>
+			{% endif %}
+		{% endfor %}
+		{% if page < totalPages %}
+			<a href="{{ path('app_Post',{'page':page + 1}) }}">&gt;</a>
+			<a href="{{ path('app_Post',{'page':totalPages}) }}">&gt;&gt;</a>
+		{% else %}
+			<span>&gt;</span>
+			<span>&gt;&gt;</span>
+		{% endif %}</div>
+		
 {% endif %}
+
+</div>
 
 {% endblock %}

@@ -65,7 +65,7 @@ class EventController extends AbstractController
 
       $repository->insert($request);
     }
-    return $this->render('/kurigram/Events/insertEvents.html.twig', []);
+    return $this->render('/kurigram/Events/InsertEvents.html.twig', []);
   }
 
   #[Route('/deleteEvent/{id}', name: 'delete_event')]

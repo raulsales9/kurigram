@@ -6,7 +6,7 @@
 				<a class="btn btn-primary" href="/">Back ⇦</a>
 				<h1>Usuarios <a class="btn btn-success" href="/twig/insertUser">Crear</a></h1>
 
-			 {% set elementsPerPage = 5 %}
+			 {% set elementsPerPage = 3 %}
 			{% set lowerLimit = (page -1) * elementsPerPage + 1 %}
 			{% set upperLimit = page * elementsPerPage %} 
 			{% for task in data %}
