@@ -5,10 +5,15 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
+
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
+#[ORM\HasLifecycleCallbacks()]
 class Message
 {
+    use Timestamp;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "id")]
@@ -25,11 +30,6 @@ class Message
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private ?User $user = null;
 
-    #[ORM\Column(type: "datetime")]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\Column(type: "datetime", nullable: true)]
-    private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -82,27 +82,4 @@ class Message
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
 }

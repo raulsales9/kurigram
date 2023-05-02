@@ -35,7 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(referencedColumnName:'id_event')]
     private Collection $events;
 
-    #[ORM\ManyToMany(targetEntity: Message::class, mappedBy: 'idUser')]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'idUser')]
     #[ORM\JoinColumn(referencedColumnName:'id_message')]
     private Collection $messages;
 
@@ -43,6 +43,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(referencedColumnName:'id_follow')]
     private Collection $follow;
 
+    #[ORM\OneToMany(targetEntity: "Participant", mappedBy: "iduser")]
+    private $participants;
 
     #[ORM\Column]
     private ?string $password = null;
@@ -130,29 +132,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    public function getMessage(): Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Message $messages): self
-    {
-        if (!$this->messages->contains($messages)) {
-            $this->messages->add($messages);
-            $messages->addIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $messages): self
-    {
-        if ($this->events->removeElement($messages)) {
-            $messages->removeIdUser($this);
-        }
-
-        return $this;
-    }
+    
 
     public function getPhone(): ?string
     {

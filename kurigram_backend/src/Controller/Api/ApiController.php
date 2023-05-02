@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 
 use App\Entity\User;
 use App\Entity\Event;
+use App\Entity\Posts;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -82,6 +83,26 @@ class ApiController extends AbstractController
                 "description" => $getEvent->getDescription(),
                 "imagen" => $getEvent->getImagen(),
                 "id" => $getEvent->getId()
+            ];
+        }
+        return new JsonResponse($data, Response::HTTP_OK);
+    }
+
+    
+    #[Route('/posts', name: 'getAllEvents_api', methods: ["GET"])]
+    public function getAllPosts(ManagerRegistry $doctrine): JsonResponse
+    {
+        $getAllPosts = $doctrine->getRepository(Posts::class)->findAll();
+
+        foreach ($getAllPosts as $getPosts) {
+            $data[] = [
+                "created_at" => $getPosts->getCreatedAt(),
+                "likes" => $getPosts->getLikes(),
+                "text" => $getPosts->getText(),
+                "isSubmitted" => $getPosts->getIsSubmitted(),
+                "file" => $getPosts->getFile(),
+                "title" => $getPosts->getTitle(),
+                "id_user" => $getPosts->getIdUser()
             ];
         }
         return new JsonResponse($data, Response::HTTP_OK);

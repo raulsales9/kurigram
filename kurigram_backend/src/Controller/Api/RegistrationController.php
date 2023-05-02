@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Repository\PostsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,5 +21,15 @@ class RegistrationController extends AbstractController
         $repository->insert($data);
 
         return new JsonResponse(["status" => "User created!"], Response::HTTP_CREATED);
+    }
+
+    #[Route('/insert/post', name:'insertPost_api', methods:["POST"])]
+    public function insertPost(Request $request, PostsRepository $repository): JsonResponse {
+
+        $data = json_decode($request->getContent(), true);
+
+        $repository->insertApi($data);
+
+        return new JsonResponse(["status" => "Post created!"], Response::HTTP_CREATED);
     }
 }

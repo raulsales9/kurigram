@@ -50,7 +50,7 @@ class MessageController extends AbstractController
         ]);
     }
 
-    #[Route('/messages/new/{recipient}', name: 'message_new', methods: ['GET', 'POST'])]
+ /*    #[Route('/messages/new/{recipient}', name: 'message_new', methods: ['GET', 'POST'])]
     public function new(Request $request, User $recipient, EntityManagerInterface $entityManager): Response
     {
         $message = new Message();
@@ -72,5 +72,5 @@ class MessageController extends AbstractController
             'form' => $form->createView(),
             'recipient' => $recipient,
         ]);
-    }
+    } */
 }

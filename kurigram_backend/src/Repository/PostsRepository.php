@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Posts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -64,13 +65,36 @@ class PostsRepository extends ServiceEntityRepository
             ->setTitle($data->request->get("title"))
             ->setFile($file . $extension)
             ->setLikes(0) // Set a default value for likes
-            ->setIsSubmitted(true);
+            ->setIsSubmitted(true)
+            ->setFile($file->move("uploads/posts/", $Posts->getIdPost() . $extension));
         $this->doctrine->getManager()->persist($Posts);
         $this->doctrine->getManager()->flush();
     }
 
 
-
+    public function insertApi($data): void
+    {
+        $Posts = new Posts;
+        $file = $data['files'];
+        $startDate = new \DateTime($data["created_at"]);
+        $extension = "." . $file->getClientOriginalExtension();
+        $getIds = $this->doctrine->getRepository(Posts::class)->findAll();
+        $maxId = 0;
+        foreach ($getIds as $post) {
+            if ($post->getIdPost() > $maxId) {
+                $maxId = $post->getIdPost();
+            }
+        }
+        $Posts->setIdPost($maxId + 1);
+        $Posts->setIdUser($data['id_user']);
+        $Posts->setLikes($data['likes']);
+        $Posts->setCreatedAt($startDate);
+        $Posts->setText($data['text']);
+        $Posts->setIsSubmitted(true);
+        $Posts->setFile($file->move("uploads/posts/", $Posts->getIdPost() . $extension));
+        $this->entityManager->persist($Posts);
+        $this->entityManager->flush();
+    }
     //    /**
     //     * @return Posts[] Returns an array of Posts objects
     //     */
