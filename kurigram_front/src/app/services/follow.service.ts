@@ -5,7 +5,7 @@ import { Observable  } from 'rxjs';
   providedIn: 'root'
 })
 export class FollowService {
-  public url: string;
+/*   public url: string;
 
   constructor(private http: HttpClient) {
     this.url = global.url;
@@ -19,6 +19,6 @@ export class FollowService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
    
     return this.http.delete(this.url+'follow/' + id, {headers: headers} );
-  }
+  } */
   
 }

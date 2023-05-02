@@ -12,12 +12,13 @@ export class SigninComponent {
   name: string = "";
   password: string = "";
   confirmPassword: string = "";
+  phone :string = "";
 
   constructor(public service :RequestService, private router: Router){}
 
   public onRegistry(){
     if (this.password === this.confirmPassword) {
-      this.service.registerResponse(this.email, this.name, this.password).subscribe(response =>{
+      this.service.registration(this.email, this.name, this.password, this.phone).subscribe(response =>{
         this.router.navigate(['/login']);
       });
     } else {

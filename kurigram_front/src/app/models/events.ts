@@ -1,16 +1,27 @@
-export interface User{
-    name: string,
-    email: string,
-    phone: string;
-    events: any[]
+export interface Events {
+    name:        string;
+    place:       string;
+    end_date:    EndDateClass;
+    start_date:  EndDateClass;
+    description: string;
+    imagen:      string;
+    id:          number;
 }
+
+export interface EndDateClass {
+    date:          Date;
+    timezone_type: number;
+    timezone:      string;
+}
+
+
 export class Convert {
-    public static toWelcome(json: string): User {
-        return cast(JSON.parse(json), r("Welcome"));
+    public static toEvents(json: string): Events[] {
+        return cast(JSON.parse(json), a(r("Events")));
     }
 
-    public static welcomeToJson(value: User): string {
-        return JSON.stringify(uncast(value, r("Welcome")), null, 2);
+    public static EventsToJson(value: Events[]): string {
+        return JSON.stringify(uncast(value, a(r("Events"))), null, 2);
     }
 }
 
@@ -164,10 +175,18 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-    "Welcome": o([
+    "Events": o([
         { json: "name", js: "name", typ: "" },
-        { json: "Email", js: "Email", typ: "" },
-        { json: "phone", js: "phone", typ: "" },
-        { json: "events", js: "events", typ: a("any") },
+        { json: "place", js: "place", typ: "" },
+        { json: "end_date", js: "end_date", typ: r("EndDateClass") },
+        { json: "start_date", js: "start_date", typ: r("EndDateClass") },
+        { json: "description", js: "description", typ: "" },
+        { json: "imagen", js: "imagen", typ: "" },
+        { json: "id", js: "id", typ: 0 },
+    ], false),
+    "EndDateClass": o([
+        { json: "date", js: "date", typ: Date },
+        { json: "timezone_type", js: "timezone_type", typ: 0 },
+        { json: "timezone", js: "timezone", typ: "" },
     ], false),
 };
