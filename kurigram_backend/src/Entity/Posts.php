@@ -35,18 +35,7 @@ class Posts
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: true, name: 'id_user')]
-   private ?User $idUser = null;
-
- /*    public function __construct($created_at = null, $likes = null, $text = null, $isSubmitted = false, $file = null, $title = null)
-    {
-        $this->created_at = new \DateTime();
-        $this->likes = $likes;
-        $this->text = $text;
-        $this->isSubmitted = $isSubmitted;
-        $this->file = $file;
-        $this->title = $title;
-        $this->idUser = new ArrayCollection();
-    } */
+   private ?User $idUser;
 
     public function getCreatedAt(): ?\DateTimeInterface
     {

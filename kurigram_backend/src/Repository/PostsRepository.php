@@ -41,7 +41,7 @@ class PostsRepository extends ServiceEntityRepository
         }
     }
 
-    public function insert($data) : void
+    public function insert($data): void
     {
         $Posts = new Posts;
         $file = $data->files->get('imagen');
@@ -49,13 +49,14 @@ class PostsRepository extends ServiceEntityRepository
         $extension = "." . $file->getClientOriginalExtension();
         $getIds = $this->doctrine->getRepository(Posts::class)->findAll();
         $maxId = 0;
-        for ($i=0; $i < count($getIds); $i++) { 
-            if ($getIds[$i]->getId() > $maxId) {
-                $maxId = $getIds[$i]->getId(); 
+        foreach ($getIds as $post) {
+            if ($post->getIdPost() > $maxId) {
+                $maxId = $post->getIdPost();
             }
         }
         $maxId++;
-       $newId = $maxId;
+        $newId = $maxId;
+        
         $Posts
             ->setIdPost($newId)
             ->setText($data->request->get("text"))
@@ -67,31 +68,31 @@ class PostsRepository extends ServiceEntityRepository
         $this->doctrine->getManager()->persist($Posts);
         $this->doctrine->getManager()->flush();
     }
-  
 
 
-//    /**
-//     * @return Posts[] Returns an array of Posts objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Posts
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Posts[] Returns an array of Posts objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('p.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Posts
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

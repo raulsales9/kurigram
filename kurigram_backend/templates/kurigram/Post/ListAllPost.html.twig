@@ -7,13 +7,19 @@
 {% if not posts %}
   <h3>No hay ningún post disponible</h3>
 {% else %}
+  {# <p>Usuario actual: {{ user_name }} (id: {{ user_id }})</p> #}
   {% for post in posts %}
     <div class="card card-rounded" style="width: 400px; height: 300px; border: 2px solid black">
       {% if post.file %}
-        <img src="{{ asset('uploads/' ~ post.file) }}" style="witdh: 300px; height: 200px" alt="Imagen del post">
+        <img src="{{ asset('uploads/' ~ post.file) }}" alt="imagen del post" class="card-img-top" style="height: 200px; object-fit: cover;">
       {% endif %}
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.text }}</p>
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.text }}</p>
+        <p class="card-text">{{ post.createdAt|date('d-m-Y H:i') }}</p>
+        {# <a href="{{ path('app_like_post', {'id': post.idPost}) }}" class="btn btn-primary">Me gusta ({{ post.likes }})</a>
+        <a href="{{ path('app_dislike_post', {'id': post.idPost}) }}" class="btn btn-primary">No me gusta ({{ post.dislikes }})</a> #}
+      </div>
     </div>
   {% endfor %}
 {% endif %}
