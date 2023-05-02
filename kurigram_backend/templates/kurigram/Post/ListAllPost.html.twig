@@ -7,7 +7,7 @@
 {% if not posts %}
   <h3>No hay ningún post disponible</h3>
 {% else %}
-  {# <p>Usuario actual: {{ user_name }} (id: {{ user_id }})</p> #}
+  
   {% for post in posts %}
     <div class="card card-rounded" style="width: 400px; height: 300px; border: 2px solid black">
       {% if post.file %}
@@ -17,6 +17,7 @@
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text">{{ post.text }}</p>
         <p class="card-text">{{ post.createdAt|date('d-m-Y H:i') }}</p>
+        <p class="card-text">{{post.likes}}</p>
         {# <a href="{{ path('app_like_post', {'id': post.idPost}) }}" class="btn btn-primary">Me gusta ({{ post.likes }})</a>
         <a href="{{ path('app_dislike_post', {'id': post.idPost}) }}" class="btn btn-primary">No me gusta ({{ post.dislikes }})</a> #}
       </div>
