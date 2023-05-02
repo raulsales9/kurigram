@@ -14,6 +14,9 @@
 			 {% for post in posts %}
 				{% if loop.index >= lowerLimit and loop.index <= upperLimit %} 
     <div class="card card-rounded text-center mb-5" style="width: 400px; height: 300px; border: 2px solid black; margin-left: 200px">
+  
+  {% for post in posts %}
+    <div class="card card-rounded" style="width: 400px; height: 300px; border: 2px solid black">
       {% if post.file %}
         <img src="{{ asset('uploads/' ~ post.file) }}" alt="imagen del post" class="card-img-top" style="height: 200px; object-fit: cover;">
       {% endif %}
@@ -24,6 +27,7 @@
         </h6>
         <p class="card-text">{{ post.text }}</p>
         <p class="card-text">{{ post.createdAt|date('d-m-Y H:i') }}</p>
+        <p class="card-text">{{post.likes}}</p>
         {# <a href="{{ path('app_like_post', {'id': post.idPost}) }}" class="btn btn-primary">Me gusta ({{ post.likes }})</a>
         <a href="{{ path('app_dislike_post', {'id': post.idPost}) }}" class="btn btn-primary">No me gusta ({{ post.dislikes }})</a> #}
       </div>
