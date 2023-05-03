@@ -28,7 +28,15 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: /twig/*, roles: [ADMIN, ROLE_USER] }
+         - { path: /twig/listUser/, roles: [ADMIN, ROLE_USER] }
+         - { path: /twig/userPosts/*, roles: [ADMIN, ROLE_USER] }
+         - { path: /twig/detailUser/*, roles: [ADMIN] }
+         - { path: /twig/insertUser/*, roles: [ADMIN] }
+         - { path: /twig/deleteUser/*, roles: [ADMIN] }
+         - { path: /twig/updateUser/*, roles: [ADMIN] }
+         - { path: /twig/updateEvent/*, roles: [ADMIN] }
+         - { path: /twig/insertEvent/*, roles: [ADMIN] }
+         - { path: /twig/deleteEvent/*, roles: [ADMIN] }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

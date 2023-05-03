@@ -12,41 +12,60 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Follow;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+#[Route('/twig', name: "app_")]
 class FollowsController extends AbstractController
 {
-    #[Route('/following', name: 'following')]
-    public function following(EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
-        $followRepository = $entityManager->getRepository(Follow::class);
-        $following = $followRepository->findBy(['following' => $user]);
-
-        return $this->render('/kurigram/Follows/following.html.twig', [
-            'following' => $following,
-        ]);
-    }
-
-    #[Route('/follow/{id}', name: 'follow')]
-    public function followUser(Request $request, EntityManagerInterface $entityManager, string $id): Response
+    #[Route('/userFollowers/{id}', name: 'followers')]
+    public function users(EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
         $userRepository = $entityManager->getRepository(User::class);
-        $followedUser = $userRepository->find($id);
-        if (!$followedUser) {
-            throw $this->createNotFoundException('User not found');
-        }
-        $follow = $entityManager->getRepository(Follow::class)->findOneBy([
-            'following' => $user->getId(),
-            'followers' => $followedUser->getId()
+        $users = $userRepository->findAllExceptUser($user);
+
+        $followRepository = $entityManager->getRepository(Follow::class);
+        $followers = $followRepository->findBy(['followers' => $user]);
+
+        return $this->render('/kurigram/Follows/followers.html.twig', [
+            'users' => $users,
+            'followers' => $followers,
         ]);
-        if (!$follow) {
-            $follow = new Follow();
-            $follow->setFollowing($user);
-            $follow->setFollowers($followedUser);
-            $entityManager->persist($follow);
-            $entityManager->flush();
+    }
+
+    #[Route('/userFollowing/{id}', name: 'following')]
+    public function following(EntityManagerInterface $entityManager)
+    {
+        // Obtener el usuario actual
+        $user = $this->getUser();
+
+        // Obtener el repositorio de seguidores
+        $followRepository = $entityManager->getRepository(Follow::class);
+
+        // Obtener la lista de seguidores del usuario
+        $following = $followRepository->findBy(['following' => $user]);
+
+        // Crear una lista de los usuarios seguidos por el usuario
+        $users = [];
+        foreach ($following as $follow) {
+            $users[] = $follow->getFollower();
         }
-        return $this->redirectToRoute('user_profile', ['id' => $followedUser->getId()]);
+
+        // Renderizar la vista con la lista de usuarios seguidos
+        return $this->render('/kurigram/Follows/following.html.twig', [
+            'users' => $users
+        ]);
+    }
+    /*  
+    #[Route('/follow/{id}', name: 'follow')]
+    public function followUser(Request $request, EntityManagerInterface $entityManager, User $id): Response
+    {
+        $user = $this->getUser();
+        $follow = new Follow();
+        $follow->setFollowing($user);
+        $follow->setFollowers($id);
+        $entityManager->persist($follow);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('user_profile', ['id' => $id->getId()]);
     }
 
     #[Route('/unfollow/{id}', name: 'unfollow')]
@@ -64,16 +83,27 @@ class FollowsController extends AbstractController
         return $this->redirectToRoute('user_profile', ['id' => $id->getId()]);
     }
 
-    #[Route('/is_following', name: 'app_follows_is_following')]
-    public function isFollowing(Request $request, EntityManagerInterface $entityManager): JsonResponse
-    {
-        $userId = $request->query->getInt('user_id');
-        $followerId = $request->query->getInt('follower_id');
+    #[Route('/toggle_follow/{id}', name: 'toggle_follow')]
+public function toggleFollowUser(EntityManagerInterface $entityManager, User $id): RedirectResponse
+{
+    $user = $this->getUser();
+    $followRepository = $entityManager->getRepository(Follow::class);
+    $follow = $followRepository->findOneBy([
+        'following' => $user,
+        'followers' => $id
+    ]);
 
-        $followRepository = $entityManager->getRepository(Follow::class);
-
-        $isFollowing = $followRepository->isFollowing($userId, $followerId);
-
-        return new JsonResponse(['is_following' => $isFollowing]);
+    if ($follow) {
+        $entityManager->remove($follow);
+        $entityManager->flush();
+    } else {
+        $follow = new Follow();
+        $follow->setFollowing($user);
+        $follow->setFollowers($id);
+        $entityManager->persist($follow);
+        $entityManager->flush();
     }
+
+    return $this->redirectToRoute('user_profile', ['id' => $id->getId()]);
+} */
 }

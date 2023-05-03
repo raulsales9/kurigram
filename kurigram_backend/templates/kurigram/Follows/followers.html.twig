@@ -1,0 +1,11 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+     <h1>Seguidores</h1>
+
+    <ul>
+        {% for follower in followers %}
+            <li>{{ follower.username }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
