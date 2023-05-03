@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route("/twig")]
 class MessageController extends AbstractController
 {
-
+/* 
     #[Route('/messages', name: 'app_Messages', methods: ['GET'])]
     public function index(MessageRepository $messageRepository): Response
     {
@@ -48,7 +48,7 @@ class MessageController extends AbstractController
             'messages' => $messages,
             'recipient' => $recipient,
         ]);
-    }
+    } */
 
  /*    #[Route('/messages/new/{recipient}', name: 'message_new', methods: ['GET', 'POST'])]
     public function new(Request $request, User $recipient, EntityManagerInterface $entityManager): Response
