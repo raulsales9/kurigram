@@ -7,66 +7,75 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav mx-auto ">
-                <li class="navbar-item">
-                    <a class="nav-link text-white" [routerLink]="['home']">Inicio</a>
-                </li>
+            <ul class="navbar-nav nav-pills mx-auto ">
+                <div *ngIf="home==1">
+                    <li class="navbar-item">
+                        <a class="nav-link text-white active" [routerLink]="['home']">Inicio</a>
+                    </li>
+                </div>
+                <div *ngIf="home==2">
+                    <li class="navbar-item">
+                        <a class="nav-link text-white active" (click)="onHome()" [routerLink]="['home']">Inicio</a>
+                    </li>
+                </div>
+                
                 <li class="navbar-item">
                     <a class="nav-link text-white" href="#">Acerca de</a>
                 </li>
-                <li class="navbar-item">
-                    <a class="nav-link text-white" href="#">Contacto</a>
+                <div *ngIf="perfil==1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" [routerLink]="['profile']">Mi perfil</a>
+                    </li>
+                </div>
+                <div>
+                    <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Configuración</a>
                 </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="dropdown">
-                    <a class="nav-link text-white text-center dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account<br><i class="fa fa-user" aria-hidden="true"></i></a>
-                    <div class="dropdown-menu" aria-labelledby="accountDropdown">
-                        <a class="dropdown-item" href="#">Mi perfil</a>
-                        <a class="dropdown-item" href="#">Configuración</a>
-                    </div>
-                </li>
-                <li class="nav-item">
+                </div>
+                <div>
+                    <li class="nav-item">
                     <a class="nav-link text-white text-center" href="#">Log Out<br><i class="fa fa-sign-out" aria-hidden="true"></i></a>
                 </li>
+                </div>
+                <div *ngIf="perfil==1">
+                    <li class="nav-item  ms-3 mb-3 mt-3">
+                        <a class="nav-link active" (click)="onPerfil()" [routerLink]="['login']">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <title>{{ userName }}</title>
+                                <path
+                                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                            </svg>
+                        </a>
+                    </li>
+                </div>
+                <div *ngIf="perfil==2">
+                    <li class="nav-item  ms-3 mb-3 mt-3">
+                        <a class="nav-link active" [ngStyle]="{'color':'#e10000'}" [routerLink]="['login']">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <title>{{ userName }}</title>
+                                <path
+                                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                            </svg>
+                        </a>
+                    </li>
+                </div>
+    
+                <div *ngIf="perfil==3">
+                    <li class="nav-item  ms-3 mb-3 mt-3">
+                        <a class="nav-link active" [ngStyle]="{'color':'#468f27'}" [routerLink]="['profile']">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <title>{{ userName }}</title>
+                                <path
+                                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                            </svg>
+                        </a>
+                    </li>
+                </div>
             </ul>
-            <div *ngIf="perfil==1">
-                <li class="nav-item  ms-3 mb-3 mt-3">
-                    <a class="nav-link active" (click)="onPerfil()" [routerLink]="['login']">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                            class="bi bi-person-fill" viewBox="0 0 16 16">
-                            <title>{{ userName }}</title>
-                            <path
-                                d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                        </svg>
-                    </a>
-                </li>
-            </div>
-            <div *ngIf="perfil==2">
-                <li class="nav-item  ms-3 mb-3 mt-3">
-                    <a class="nav-link active" [ngStyle]="{'color':'#e10000'}" [routerLink]="['login']">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                            class="bi bi-person-fill" viewBox="0 0 16 16">
-                            <title>{{ userName }}</title>
-                            <path
-                                d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                        </svg>
-                    </a>
-                </li>
-            </div>
 
-            <div *ngIf="perfil==3">
-                <li class="nav-item  ms-3 mb-3 mt-3">
-                    <a class="nav-link active" [ngStyle]="{'color':'#468f27'}" [routerLink]="['profile']">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                            class="bi bi-person-fill" viewBox="0 0 16 16">
-                            <title>{{ userName }}</title>
-                            <path
-                                d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                        </svg>
-                    </a>
-                </li>
-            </div>
         </div>
     </nav>
 </header>
