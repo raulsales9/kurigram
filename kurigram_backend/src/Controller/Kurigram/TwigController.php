@@ -7,6 +7,7 @@ use App\Entity\Event;
 use App\Entity\Follow;
 use App\Entity\Message;
 use App\Entity\Posts;
+use App\Repository\PostsRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
@@ -151,13 +152,10 @@ public function deleteProfile(Request $request, EntityManagerInterface $entityMa
     }
 
     #[Route('/deleteUser/{usuario}', name: 'deleteUser')]
-    public function delete(EntityManagerInterface $gestor, int $usuario): Response
+    public function delete(EntityManagerInterface $gestor, int $usuario, PostsRepository $postsRepository): Response
     {
         $user = $gestor->getRepository(User::class)->find($usuario);
-        $gestor->getRepository(User::class)->delete(
-            $user
-
-        );
+        $gestor->getRepository(User::class)->delete($user, $postsRepository);
         return $this->redirect('/twig/listUser');
     }
 

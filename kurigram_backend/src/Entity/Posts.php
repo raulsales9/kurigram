@@ -37,6 +37,20 @@ class Posts
     #[ORM\JoinColumn(nullable: true, name: 'id_user')]
    private ?User $idUser;
 
+   private $fileType;
+
+public function getFileType(): ?string
+{
+    return $this->fileType;
+}
+
+public function setFileType(?string $fileType): self
+{
+    $this->fileType = $fileType;
+
+    return $this;
+}
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;

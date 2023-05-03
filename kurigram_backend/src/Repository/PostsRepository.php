@@ -2,10 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Posts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @extends ServiceEntityRepository<Posts>
@@ -17,9 +20,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PostsRepository extends ServiceEntityRepository
 {
+    private $userRepository;
     private $doctrine;
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, UserRepository $userRepository)
     {
+        $this->userRepository = $userRepository;
+        $this->entityManager = $entityManager;
         $this->doctrine = $registry;
         parent::__construct($registry, Posts::class);
     }
@@ -41,60 +48,43 @@ class PostsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-    public function insert($data): void
+    
+/*     public function insertApi($data): JsonResponse
     {
-        $Posts = new Posts;
-        $file = $data->files->get('imagen');
-        $startDate = new \DateTime($data->request->get("created_at"));
-        $extension = "." . $file->getClientOriginalExtension();
-        $getIds = $this->doctrine->getRepository(Posts::class)->findAll();
-        $maxId = 0;
-        foreach ($getIds as $post) {
-            if ($post->getIdPost() > $maxId) {
-                $maxId = $post->getIdPost();
-            }
-        }
-        $maxId++;
-        $newId = $maxId;
-        
-        $Posts
-            ->setIdPost($newId)
-            ->setText($data->request->get("text"))
-            ->setCreatedAt($startDate)
-            ->setTitle($data->request->get("title"))
-            ->setFile($file . $extension)
-            ->setLikes(0) // Set a default value for likes
-            ->setIsSubmitted(true)
-            ->setFile($file->move("uploads/posts/", $Posts->getIdPost() . $extension));
-        $this->doctrine->getManager()->persist($Posts);
-        $this->doctrine->getManager()->flush();
-    }
-
-
-    public function insertApi($data): void
-    {
-        $Posts = new Posts;
-        $file = $data['files'];
+        $post = new Posts();
         $startDate = new \DateTime($data["created_at"]);
-        $extension = "." . $file->getClientOriginalExtension();
-        $getIds = $this->doctrine->getRepository(Posts::class)->findAll();
-        $maxId = 0;
-        foreach ($getIds as $post) {
-            if ($post->getIdPost() > $maxId) {
-                $maxId = $post->getIdPost();
-            }
+        
+        $post->setIdPost($data['id_post'] ?? null);
+        
+        $user = $this->userRepository->find($data['id_user']);
+    
+        if (!$user) {
+            throw new \InvalidArgumentException('Invalid user ID');
         }
-        $Posts->setIdPost($maxId + 1);
-        $Posts->setIdUser($data['id_user']);
-        $Posts->setLikes($data['likes']);
-        $Posts->setCreatedAt($startDate);
-        $Posts->setText($data['text']);
-        $Posts->setIsSubmitted(true);
-        $Posts->setFile($file->move("uploads/posts/", $Posts->getIdPost() . $extension));
-        $this->entityManager->persist($Posts);
+        
+        $post->setIdUser($user);
+        $post->setLikes($data['likes']);
+        $post->setCreatedAt($startDate);
+        $post->setText($data['text']);
+        $post->setIsSubmitted($data['isSubmitted'] ?? false);
+        
+        if (isset($data['files'])) {
+            $file = file_get_contents($data['files']);
+            if (!$file) {
+                throw new \InvalidArgumentException('Invalid file');
+            }
+            $extension = pathinfo(parse_url($data['files'], PHP_URL_PATH), PATHINFO_EXTENSION);
+            $post->setFile(base64_encode($file));
+            $post->setFileType($extension);
+        }
+        
+        $this->entityManager->persist($post);
         $this->entityManager->flush();
+    
+        return new JsonResponse(['status' => 'Post created!'], Response::HTTP_CREATED);
     }
+ */
+   
     //    /**
     //     * @return Posts[] Returns an array of Posts objects
     //     */

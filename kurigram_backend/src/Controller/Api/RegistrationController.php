@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 #[Route('/api')]
 class RegistrationController extends AbstractController
 {
+
     #[Route('/insert/user', name:'insertUser_api', methods:["POST"])]
     public function insertUser(Request $request, UserRepository $repository): JsonResponse {
 
@@ -23,13 +24,14 @@ class RegistrationController extends AbstractController
         return new JsonResponse(["status" => "User created!"], Response::HTTP_CREATED);
     }
 
-    #[Route('/insert/post', name:'insertPost_api', methods:["POST"])]
-    public function insertPost(Request $request, PostsRepository $repository): JsonResponse {
-
-        $data = json_decode($request->getContent(), true);
-
-        $repository->insertApi($data);
-
-        return new JsonResponse(["status" => "Post created!"], Response::HTTP_CREATED);
-    }
+/* 
+    #[Route('/insert-post', name: 'insert_post', methods: ['POST'])]
+    public function insertPost(Request $request, PostsRepository $postsRepository): JsonResponse
+    {
+        $postData = json_decode($request->getContent(), true);
+    
+        $postsRepository->insertApi($postData);
+    
+        return new JsonResponse(['status' => 'Post created!'], Response::HTTP_CREATED);
+    } */
 }

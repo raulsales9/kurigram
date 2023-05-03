@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repository;
-
+use App\Repository\PostsRepository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,6 +45,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function delete(User $usuario, $postsRepository): void
+    {
+        $posts = $usuario->getPosts();
+        $countFiles = count($posts);
+            for ($i=0; $i < $countFiles; $i++) {
+                
+                $postsRepository->remove($posts[$i], true);
+            }
+        $this->remove($usuario, true);
     }
 
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void

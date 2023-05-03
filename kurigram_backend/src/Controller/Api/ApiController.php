@@ -69,7 +69,27 @@ class ApiController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
 
-    #[Route('/events', name: 'getAllEvents_api', methods: ["GET"])]
+    
+
+    
+    #[Route('/posts/{id}', name: 'getEvent_api', methods: ["GET"])]
+    public function getPosts(ManagerRegistry $doctrine, $id): JsonResponse
+    {
+        $getPost = $doctrine->getRepository(Posts::class)->find($id);
+
+        $data = [
+            "created_at" => $getPost->getCreatedAt(),
+            "likes" => $getPost->getLikes(),
+            "text" => $getPost->getText(),
+            "isSubmitted" => $getPost->getIsSubmitted(),
+            "file" => $getPost->getFile(),
+            "title" => $getPost->getTitle(),
+            "Users"=>$getPost->getIdUser()
+        ];
+        return new JsonResponse($data, Response::HTTP_OK);
+    }
+    
+    #[Route('/todos', name: 'getAllEvents_api', methods: ["GET"])]
     public function getAllEvents(ManagerRegistry $doctrine): JsonResponse
     {
         $getAllEvents = $doctrine->getRepository(Event::class)->findAll();
@@ -87,7 +107,6 @@ class ApiController extends AbstractController
         }
         return new JsonResponse($data, Response::HTTP_OK);
     }
-
     
     #[Route('/posts', name: 'getAllEvents_api', methods: ["GET"])]
     public function getAllPosts(ManagerRegistry $doctrine): JsonResponse
