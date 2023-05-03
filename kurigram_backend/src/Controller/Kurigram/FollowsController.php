@@ -16,46 +16,41 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class FollowsController extends AbstractController
 {
     #[Route('/userFollowers/{id}', name: 'followers')]
-    public function users(EntityManagerInterface $entityManager): Response
-    {
-        $user = $this->getUser();
-        $userRepository = $entityManager->getRepository(User::class);
-        $users = $userRepository->findAllExceptUser($user);
+public function users(User $user, EntityManagerInterface $entityManager): Response
+{
+    $loggedInUser = $this->getUser();
 
-        $followRepository = $entityManager->getRepository(Follow::class);
-        $followers = $followRepository->findBy(['followers' => $user]);
+    $userRepository = $entityManager->getRepository(User::class);
+    $users = $userRepository->findAllExceptUser($loggedInUser);
 
-        return $this->render('/kurigram/Follows/followers.html.twig', [
-            'users' => $users,
-            'followers' => $followers,
-        ]);
-    }
+    $followRepository = $entityManager->getRepository(Follow::class);
+    $followers = $followRepository->findBy(['followers' => $user]);
+
+    return $this->render('/kurigram/Follows/followers.html.twig', [
+        'users' => $users,
+        'followers' => $followers,
+        'targetUser' => $user,
+        'loggedInUser' => $loggedInUser
+    ]);
+}
 
     #[Route('/userFollowing/{id}', name: 'following')]
-    public function following(EntityManagerInterface $entityManager)
+    public function following(EntityManagerInterface $entityManager, $id)
     {
-        // Obtener el usuario actual
-        $user = $this->getUser();
-
-        // Obtener el repositorio de seguidores
+        $user = $entityManager->getRepository(User::class)->find($id);
         $followRepository = $entityManager->getRepository(Follow::class);
-
-        // Obtener la lista de seguidores del usuario
         $following = $followRepository->findBy(['following' => $user]);
-
-        // Crear una lista de los usuarios seguidos por el usuario
         $users = [];
         foreach ($following as $follow) {
             $users[] = $follow->getFollower();
         }
-
-        // Renderizar la vista con la lista de usuarios seguidos
         return $this->render('/kurigram/Follows/following.html.twig', [
-            'users' => $users
+            'users' => $users,
+            'user' => $user
         ]);
     }
-    /*  
-    #[Route('/follow/{id}', name: 'follow')]
+
+   /*  #[Route('/follow/{id}', name: 'follow')]
     public function followUser(Request $request, EntityManagerInterface $entityManager, User $id): Response
     {
         $user = $this->getUser();
@@ -105,5 +100,5 @@ public function toggleFollowUser(EntityManagerInterface $entityManager, User $id
     }
 
     return $this->redirectToRoute('user_profile', ['id' => $id->getId()]);
-} */
+}  */
 }

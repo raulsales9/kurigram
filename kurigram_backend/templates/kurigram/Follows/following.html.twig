@@ -1,9 +1,10 @@
 {% extends "layout.html.twig" %}
+
 {% block content %}
-    <h1>Usuarios seguidos por {{ app.user.name }}</h1>
-  <ul>
-    {% for user in users %}
-      <li>{{ user.name }}</li>
-    {% endfor %}
-  </ul>
+    <h1>Usuarios seguidos por {{ user.name }}</h1>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.name }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
