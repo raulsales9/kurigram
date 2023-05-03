@@ -1,10 +1,18 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+    <section class="container mb-5 mt-5" style="background-color: grey">
+		
+				<a class="btn btn-primary" href="/twig/listUser">Back ⇦</a>
+				<article class="eventList mb-5 mt-5 " style="background-color: white; heigth: 50px">
     <h1>Usuarios seguidos por {{ user.name }}</h1>
     <ul>
         {% for user in users %}
+            <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 mt-3 mb-3">
             <li>{{ user.name }}</li>
+            <p>probando</p></div>
         {% endfor %}
     </ul>
+    </article>
+	</section>
 {% endblock %}

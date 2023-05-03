@@ -1,9 +1,18 @@
 {% extends 'layout.html.twig' %}
+
+
 {% block content %}
-    <h1>Seguidores de {{ targetUser.getName() }}</h1>
-    <ul>
-        {% for follower in followers %}
-            <li>{{ follower.getName() }}</li>
-        {% endfor %}
-    </ul>
+    <section class="container mb-5 mt-5" style="background-color: grey">
+				<a class="btn btn-primary" href="/twig/listUser">Back ⇦</a>
+				<article class="eventList mb-5 mt-5" style="background-color: white; heigth: 50px">
+					<h1>Seguidores de {{ targetUser.getName() }}</h1>
+                        <ul>
+                            {% for follower in followers %}
+                             <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 mt-3 mb-3">
+                                <li>{{ follower.getName() }}</li>
+                            </div>
+                            {% endfor %}
+                        </ul>
+				</article>
+	</section>
 {% endblock %}

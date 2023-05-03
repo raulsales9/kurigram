@@ -1,9 +1,9 @@
+
 {% extends 'layout.html.twig' %}
     {% block content %}
-	<section id="contaner">
-    <div class="container mb-5 mt-5"  style="background-color: grey">
-		
-				<a class="btn btn-primary" href="/">Back ⇦</a>
+	<section class="container mb-5 mt-5"style="background-color: grey">
+
+				<a class="btn btn-primary" href="/kurigram">Back ⇦</a>
 				<h1>Usuarios <a class="btn btn-success" href="/twig/insertUser">Crear</a></h1>
 
 			 {% set elementsPerPage = 3 %}
@@ -11,8 +11,8 @@
 			{% set upperLimit = page * elementsPerPage %} 
 			{% for task in data %}
 				{% if loop.index >= lowerLimit and loop.index <= upperLimit %} 
-				<article class="eventList mb-5 mt-5" style="background-color: white; heigth: 50px">
-					<a class="text-decoration-none nameUser fs-3 me-3" href="/twig/detailUser/{{task["id"]}}" >{{ task["name"] }} </a>
+				<article class=" eventList mb-5 mt-5" style="background-color: white; heigth: 50px">
+					 <a class="text-decoration-none nameUser fs-3 me-3" href="/twig/detailUser/{{task["id"]}}" >{{ task["name"] }} </a>
 					<span class="text-muted ms-3">{{task["email"] }}</span>
 					<span class="text-muted ms-3">{{task["phone"] }}</span>
 					<span class="text-muted ms-3">- {{task["roles"] }} -</span>
@@ -49,6 +49,5 @@
 			<span>&gt;</span>
 			<span>&gt;&gt;</span>
 		{% endif %}
-    </div>
 	</section>
 {% endblock %}

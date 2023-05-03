@@ -1,9 +1,9 @@
 {% extends 'layout.html.twig' %}
     {% block content %}
        
-  <section id="content">
-   <div class="container mb-5 mt-5"  style="background-color: grey">
-	<a class="btn btn-primary" href="/">Back ⇦</a>
+  <section class="container mb-5 mt-5" style="background-color: grey">
+
+	<a class="btn btn-primary" href="/kurigram">Back ⇦</a>
 	<h1>Eventos <a class="btn btn-success" href="/twig/insertEvent">Crear</a></h1> 
         
 			 {% set elementsPerPage = 5 %}
@@ -49,7 +49,6 @@
 			<span>&gt;</span>
 			<span>&gt;&gt;</span>
 		{% endif %} 
-    </div>
 	
   </section>
 

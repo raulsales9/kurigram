@@ -10,13 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Follow;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 #[Route('/twig', name: "app_")]
 class FollowsController extends AbstractController
 {
     #[Route('/userFollowers/{id}', name: 'followers')]
-public function users(User $user, EntityManagerInterface $entityManager): Response
+public function users(User $user, ?int $page, EntityManagerInterface $entityManager, SessionInterface $session): Response
 {
     $loggedInUser = $this->getUser();
 
@@ -101,4 +102,5 @@ public function toggleFollowUser(EntityManagerInterface $entityManager, User $id
 
     return $this->redirectToRoute('user_profile', ['id' => $id->getId()]);
 }  */
+
 }
