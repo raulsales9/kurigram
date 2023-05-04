@@ -1,7 +1,7 @@
 export interface Post {
   _id: string;
   text: string;
-  file: string;
+  image: string;
   created_at: string;
   user: string;
   likes: number; // se agrega la propiedad likes

@@ -1,6 +1,20 @@
-<form (submit)="onSubmit()">
-    <input type="text" [(ngModel)]="newPost.title" placeholder="Title" name="title">
-    <input type="text" [(ngModel)]="newPost.text" placeholder="Text" name="text">
-    <input type="text" [(ngModel)]="newPost.image" placeholder="Image URL" name="image">
-    <button type="submit">Submit</button>
-  </form>
+<h1>Hello</h1>
+
+<form action="http://localhost:8000/api/insert/post" method="post" (submit)="onSubmit()">
+    <label class="  form-label" >Nombre
+      <input type="text" [(ngModel)]="newPost.title" placeholder="Title" name="title" class="mt-2 mb-2 form-control">
+    </label>
+    <br>
+    <label class="  form-label">
+      <input type="text" [(ngModel)]="newPost.text" placeholder="Text" name="text" class="mt-2 mb-2 form-control">
+    </label>
+    <br>
+    <label class="  form-label">
+      <input type="text" [(ngModel)]="newPost.image" placeholder="Image URL" name="image" class="mt-2 mb-2 form-control">
+    </label>
+    <br>
+    <label class="  form-label">
+      <input type="text" [(ngModel)]="newPost.user" placeholder="User ID" name="user" class="mt-2 mb-2 form-control">
+    </label>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

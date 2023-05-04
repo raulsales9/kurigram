@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +19,8 @@ import { PostsComponent } from './views/posts/posts.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { PostFormComponent } from './views/new-post/new-post.component';
+import { TimelineComponent } from './views/timeline/timeline.component';
+import { GenteComponent } from './views/gente/gente.component';
 
 
 
@@ -32,8 +36,10 @@ import { PostFormComponent } from './views/new-post/new-post.component';
     ProfileComponent,
     EventComponent,
     PostsComponent,
-    PostFormComponent
-
+    PostFormComponent,
+    TimelineComponent,
+    GenteComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -41,7 +47,8 @@ import { PostFormComponent } from './views/new-post/new-post.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    CommonModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
