@@ -89,7 +89,7 @@ class ApiController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
     
-    #[Route('/todos', name: 'getAllEvents_api', methods: ["GET"])]
+    #[Route('/Todos', name: 'getAllEvents_api', methods: ["GET"])]
     public function getAllEvents(ManagerRegistry $doctrine): JsonResponse
     {
         $getAllEvents = $doctrine->getRepository(Event::class)->findAll();
@@ -108,7 +108,7 @@ class ApiController extends AbstractController
         return new JsonResponse($data, Response::HTTP_OK);
     }
     
-    #[Route('/posts', name: 'getAllEvents_api', methods: ["GET"])]
+    #[Route('/posts', name: 'getAllPosts_api', methods: ["GET"])]
     public function getAllPosts(ManagerRegistry $doctrine): JsonResponse
     {
         $getAllPosts = $doctrine->getRepository(Posts::class)->findAll();

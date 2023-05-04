@@ -28,7 +28,7 @@ class Posts
     private ?bool $isSubmitted = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $file = null;
+    private ?string $image = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $title = null;
@@ -37,19 +37,6 @@ class Posts
     #[ORM\JoinColumn(nullable: true, name: 'id_user')]
    private ?User $idUser;
 
-   private $fileType;
-
-public function getFileType(): ?string
-{
-    return $this->fileType;
-}
-
-public function setFileType(?string $fileType): self
-{
-    $this->fileType = $fileType;
-
-    return $this;
-}
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -87,14 +74,14 @@ public function setFileType(?string $fileType): self
         return $this;
     }
 
-    public function getFile(): ?string
+    public function getImage(): ?string
     {
-        return $this->file;
+        return $this->image;
     }
 
-    public function setFile(string $file): self
+    public function setImage(string $image): self
     {
-        $this->file = $file;
+        $this->image = $image;
 
         return $this;
     }

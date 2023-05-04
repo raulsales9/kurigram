@@ -2,32 +2,29 @@
 
 namespace App\Repository;
 
-use App\Entity\User;
 use App\Entity\Posts;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Entity;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- * @extends ServiceEntityRepository<Posts>
- *
- * @method Posts|null find($id, $lockMode = null, $lockVersion = null)
- * @method Posts|null findOneBy(array $criteria, array $orderBy = null)
- * @method Posts[]    findAll()
- * @method Posts[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+
 class PostsRepository extends ServiceEntityRepository
 {
     private $userRepository;
     private $doctrine;
     private $entityManager;
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, UserRepository $userRepository)
+    private $parameterBag;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, UserRepository $userRepository, ParameterBagInterface $parameterBag)
     {
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
         $this->doctrine = $registry;
+        $this->parameterBag = $parameterBag;
         parent::__construct($registry, Posts::class);
     }
 
@@ -48,42 +45,59 @@ class PostsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    
-/*     public function insertApi($data): JsonResponse
+
+
+    public function insert(Request $request, User $user, $imageDirectory): Posts
     {
         $post = new Posts();
-        $startDate = new \DateTime($data["created_at"]);
-        
-        $post->setIdPost($data['id_post'] ?? null);
-        
-        $user = $this->userRepository->find($data['id_user']);
-    
-        if (!$user) {
-            throw new \InvalidArgumentException('Invalid user ID');
-        }
-        
+        $post->setTitle($request->request->get('title'));
+        $post->setText($request->request->get('text'));
         $post->setIdUser($user);
-        $post->setLikes($data['likes']);
-        $post->setCreatedAt($startDate);
-        $post->setText($data['text']);
-        $post->setIsSubmitted($data['isSubmitted'] ?? false);
-        
-        if (isset($data['files'])) {
-            $file = file_get_contents($data['files']);
-            if (!$file) {
-                throw new \InvalidArgumentException('Invalid file');
-            }
-            $extension = pathinfo(parse_url($data['files'], PHP_URL_PATH), PATHINFO_EXTENSION);
-            $post->setFile(base64_encode($file));
-            $post->setFileType($extension);
+        $post->setCreatedAt(new \DateTime());
+        $post->setLikes(0);
+        $post->setIsSubmitted(1);
+    
+        // Obtener el archivo cargado
+        $file = $request->files->get('image');
+    
+        if ($file instanceof UploadedFile) {
+            // Generar un nombre de archivo único
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+    
+            // Mover el archivo a la carpeta deseada
+            $file->move(
+                $imageDirectory,
+                $fileName
+            );
+    
+            // Guardar el nombre de archivo en el objeto Posts
+            $post->setImage($fileName);
         }
-        
+    
+        // Persistir el objeto Posts en la base de datos
         $this->entityManager->persist($post);
         $this->entityManager->flush();
     
-        return new JsonResponse(['status' => 'Post created!'], Response::HTTP_CREATED);
+        return $post;
     }
- */
+
+    public function insertApi(array $postData): void
+{
+    $entityManager = $this->getEntityManager();
+    
+    $post = new Posts();
+    $post->setCreatedAt(new \DateTime($postData['created_at']));
+    $post->setLikes($postData['likes']);
+    $post->setText($postData['text']);
+    $post->setIsSubmitted($postData['isSubmitted']);
+    $post->setImage($postData['image']);
+    $post->setTitle($postData['title']);
+    $user = $this->getEntityManager()->getReference(User::class, $postData['id_user']);
+    $post->setIdUser($user);
+    
+    $entityManager->persist($post);
+    $entityManager->flush();
+}
    
     //    /**
     //     * @return Posts[] Returns an array of Posts objects
