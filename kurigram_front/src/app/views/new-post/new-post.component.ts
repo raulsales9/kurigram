@@ -6,46 +6,37 @@ import { Post } from 'src/app/models/post';
   selector: 'app-post-form',
   templateUrl: './new-post.component.html',
 })
-export class PostFormComponent implements OnInit {
+export class PostFormComponent {
 
   newPost: Post = {
-    _id: '',
-    text: '',
-    image: '',
+    _id: '6',
     created_at: '',
+    title: '',
+    text: '',
+    isSubmitted: 0,
+    image: '',
     user: '',
-    likes: 0,
-    isSubmitted: 1,
-    title: ''
+    likes: 0
   };
 
-  constructor(private requestService: RequestService) { }
-
-  ngOnInit(): void {
-  }
+  constructor(private requestService: RequestService) {}
 
   onSubmit(): void {
-    this.requestService.insertPost(this.newPost)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.newPost = {
-            _id: '',
-            text: '',
-            image: '',
-            created_at: '',
-            user: '',
-            likes: 0,
-            isSubmitted: 1,
-            title: ''
-          };
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    this.requestService.insertPost(this.newPost).subscribe((post: Post) => {
+      console.log(post);
+      this.newPost = {
+        _id: '6',
+        created_at: '',
+        title: '',
+        text: '',
+        isSubmitted: 0,
+        image: '',
+        user: '',
+        likes: 0
+      };
+    });
   }
+
 }
-  
   
   

@@ -1,20 +1,29 @@
 <h1>Hello</h1>
 
 <form action="http://localhost:8000/api/insert/post" method="post" (submit)="onSubmit()">
+    <label >Fecha de publicacion:
+      <input type="date" name="created_at" [(ngModel)]="newPost.created_at">
+    </label>
     <label class="  form-label" >Nombre
       <input type="text" [(ngModel)]="newPost.title" placeholder="Title" name="title" class="mt-2 mb-2 form-control">
     </label>
     <br>
-    <label class="  form-label">
+    <label class="  form-label"> Descripcion
       <input type="text" [(ngModel)]="newPost.text" placeholder="Text" name="text" class="mt-2 mb-2 form-control">
     </label>
     <br>
-    <label class="  form-label">
-      <input type="text" [(ngModel)]="newPost.image" placeholder="Image URL" name="image" class="mt-2 mb-2 form-control">
+    <label for="">
+      <input type="number" [(ngModel)]="newPost.isSubmitted" name="isSubmitted">
+    </label>
+    <label class="  form-label"> Image
+      <input type="file" [(ngModel)]="newPost.image" placeholder="Image URL" name="image" class="mt-2 mb-2 form-control">
     </label>
     <br>
     <label class="  form-label">
       <input type="text" [(ngModel)]="newPost.user" placeholder="User ID" name="user" class="mt-2 mb-2 form-control">
+    </label>
+    <label for="">
+      <input type="number" name="likes" [(ngModel)]="newPost.likes">
     </label>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

@@ -10,6 +10,7 @@ import { PostsComponent } from './views/posts/posts.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'events', component: EventsComponent },

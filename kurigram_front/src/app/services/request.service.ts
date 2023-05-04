@@ -49,8 +49,9 @@ export class RequestService {
     });
   }
 
-  public getUser(id : number) : Observable<User> {
-    return this.http.get<User>(this.user + id)
+  public getUser(id?: number): Observable<User> {
+    const url = id ? this.user + id : this.user;
+    return this.http.get<User>(url);
   }
 
   public updateUser(id : number, name : string, surnames : string, email : string, phone : string) : Observable<User> {
