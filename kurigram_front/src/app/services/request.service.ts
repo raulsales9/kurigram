@@ -18,11 +18,12 @@ export class RequestService {
 
   login = "http://localhost:8000/api/login";
   registry = "http://localhost:8000/api/insert/user";
-  events = "http://localhost:8000/api/events";
+  events = "http://localhost:8000/api/Todos";
   user = "http://localhost:8000/api/users";
   update = "http://localhost:8000/api/update/user";
-  asistant = "http://localhost:8000/api/update/events"; 
+  updateEvent = "http://localhost:8000/api/update/events"; 
   posts = "http://localhost:8000/api/posts";
+  inserPosts ="http://localhost:8000/api/insert/post";
 
   public getLogs($email : string, $password : string) : Observable<Login> {
     return this.http.post<Login>(this.login, { email: $email, password: $password});
@@ -31,9 +32,12 @@ export class RequestService {
   public getEvents() : Observable<Events[]> {
     return this.http.get<Events[]>(this.events)
   }
-
-  public getPosts() {
+  public getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.posts);
+  }
+
+  public insertPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(this.inserPosts, post);
   }
 
   public registration(email : string, name : string,password : string, phone : string) : Observable<Registry> {
@@ -60,7 +64,7 @@ export class RequestService {
 
   public assistEvents(idUser : string | null, idEvent : number) : Observable<
   AsistEvent> {
-    return this.http.put<AsistEvent>(this.asistant + idEvent + "/" + idUser,{});
+    return this.http.put<AsistEvent>(this.updateEvent + idEvent + "/" + idUser,{});
   }
 
 }
