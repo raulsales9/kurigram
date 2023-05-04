@@ -80,6 +80,24 @@ class PostsRepository extends ServiceEntityRepository
     
         return $post;
     }
+
+    public function insertApi(array $postData): void
+{
+    $entityManager = $this->getEntityManager();
+    
+    $post = new Posts();
+    $post->setCreatedAt(new \DateTime($postData['created_at']));
+    $post->setLikes($postData['likes']);
+    $post->setText($postData['text']);
+    $post->setIsSubmitted($postData['isSubmitted']);
+    $post->setImage($postData['image']);
+    $post->setTitle($postData['title']);
+    $user = $this->getEntityManager()->getReference(User::class, $postData['id_user']);
+    $post->setIdUser($user);
+    
+    $entityManager->persist($post);
+    $entityManager->flush();
+}
    
     //    /**
     //     * @return Posts[] Returns an array of Posts objects
