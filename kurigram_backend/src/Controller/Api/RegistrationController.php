@@ -24,8 +24,8 @@ class RegistrationController extends AbstractController
         return new JsonResponse(["status" => "User created!"], Response::HTTP_CREATED);
     }
 
-/* 
-    #[Route('/insert-post', name: 'insert_post', methods: ['POST'])]
+ 
+    #[Route('/insert/post', name: 'insert_post', methods: ['POST'])]
     public function insertPost(Request $request, PostsRepository $postsRepository): JsonResponse
     {
         $postData = json_decode($request->getContent(), true);
@@ -33,5 +33,5 @@ class RegistrationController extends AbstractController
         $postsRepository->insertApi($postData);
     
         return new JsonResponse(['status' => 'Post created!'], Response::HTTP_CREATED);
-    } */
+    } 
 }

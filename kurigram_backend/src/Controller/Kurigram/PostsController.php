@@ -4,6 +4,7 @@ namespace App\Controller\Kurigram;
 
 use App\Entity\Posts;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Repository\PostsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,12 +13,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+
 
 
 
 #[Route("/twig", name: "app_")]
 class PostsController extends AbstractController
 {
+  private $tokenStorage;
+
+  public function __construct(TokenStorageInterface $tokenStorage)
+  {
+      $this->tokenStorage = $tokenStorage;
+  }
 
   /* Find all of the posts */
   #[Route('/listPosts/{page?}', name: 'Post')]
@@ -39,40 +49,23 @@ class PostsController extends AbstractController
 
 
   #[Route('/insertPosts', name: 'insert_posts')]
-  public function insert(Request $request, PostsRepository $repository, Security $security): Response
+  public function insert(Request $request, PostsRepository $repository, TokenStorageInterface $tokenStorage, UserRepository $userRepository): Response
   {
-    $user = $security->getUser();
-
-    if (count($request->request->all())) {
-      $repository->insert($request, $user);
-    }
-
-    return $this->render('/kurigram/Post/InsertPost.html.twig', []);
+      $token = $tokenStorage->getToken();
+      if (!$token) {
+          throw new \LogicException('No authentication token found');
+      }
+  
+      $user = $userRepository->find($token->getUser()->getId());
+  
+      if ($request->isMethod('POST')) {
+          $repository->insert($request, $user, $this->getParameter('image_directory'));
+  
+          return $this->redirectToRoute('app_Post');
+      }
+  
+      return $this->render('/kurigram/Post/InsertPost.html.twig');
   }
-
-  public function uploadFile(Request $request,  EntityManagerInterface $entityManager)
-{
-    // Obtener el archivo cargado
-    $file = $request->files->get('file');
-
-    // Generar un nombre de archivo único
-    $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-
-    // Mover el archivo a la carpeta deseada
-    $file->move(
-        $this->getParameter('file_directory'),
-        $fileName
-    );
-
-    // Guardar el nombre de archivo en la base de datos
-    $post = new Posts();
-    $post->setFile($fileName);
-    $entityManager->persist($post);
-    $entityManager->flush();
-
-    // Redirigir a la página deseada
-    return $this->redirectToRoute('app_post');
-}
   private function getLastPage($page, $session): int
   {
     if ($page != null) {

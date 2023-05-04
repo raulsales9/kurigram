@@ -1,20 +1,18 @@
 
+
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20230501202001', '2023-05-01 20:20:13', 360),
-('DoctrineMigrations\\Version20230502022007', '2023-05-02 02:20:20', 284);
+('DoctrineMigrations\\Version20230504090033', '2023-05-04 09:00:36', 581);
 
 
 INSERT INTO `event` (`id`, `description`, `place`, `name`, `end_date`, `start_date`, `imagen`) VALUES
 (1, 'Plaza futbolin', 'Catarroja', 'Futbolin', '2023-02-15', '2023-02-25', 'https://cdn.pixabay.com/photo/2018/06/12/20/17/soccer-3471402_640.jpg'),
 (2, 'sadfdf', 'cullera', 'Raul Herranz', '2023-05-25', '2023-05-27', '/tmp/phpE5Uluf.jpg');
 
-INSERT INTO `posts` (`id_post`, `id_user`, `created_at`, `likes`, `text`, `is_submitted`, `file`, `title`) VALUES
-(1, NULL, '2023-05-20', 0, 'pedri', 1, '/tmp/phpyntztd.jpg', NULL),
-(2, NULL, '2023-05-11', 0, 'pedri', 1, '/tmp/phplge3sS.jpg', NULL),
-(3, NULL, '2023-05-10', 0, 'pique', 1, '/tmp/phpFVlQQP.jpg', NULL),
-(4, NULL, '2023-05-21', 0, 'pedri', 1, '/tmp/phpOI6IOV.jpg', NULL),
-(5, NULL, '2023-05-13', 0, '@Raulsahe', 1, '/tmp/phpb2K46x.jpg', NULL),
-(6, NULL, '2023-05-06', 0, '@Raulsahe', 1, 'uploads/posts/6.jpg', NULL);
+
+INSERT INTO `posts` (`id_post`, `id_user`, `created_at`, `likes`, `text`, `is_submitted`, `image`, `title`) VALUES
+(1, 6, '2023-05-04', 0, '@Raulsahe1000', 1, '61f7e65ce8871102501f08ff6504377d.jpg', NULL),
+(2, 6, '2023-05-04', 0, '@raulsales9', 1, '747062ac990388c76dcc1dfb4b00b6b4.jpg', NULL),
+(3, 6, '2023-05-04', 0, 'pedri', 1, 'ee0e477548befccca42291c199decde3.jpg', NULL);
 
 INSERT INTO `user` (`id`, `name`, `email`, `roles`, `password`, `phone`) VALUES
 (5, 'root', 'root', '[\"USER\"]', '$2y$13$dn26idZSFYKHMbpV/yPsce2pVXdCeO4XYD8RozSsIqWUg398fY8ja', 567489506),

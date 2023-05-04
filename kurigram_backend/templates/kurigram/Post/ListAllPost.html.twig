@@ -2,7 +2,8 @@
 
 {% block content %}
 <div class="container">
-  <a class="btn btn-primary mt-5 mb-5" style="margin-left: 200px" href="{{ path('app_insert_posts') }}">Crear nuevo post</a>
+<a class="btn btn-primary mt-5 mb-5" style="margin-left: 200px" href="{{path('app_Post')}}"> Volver</a>
+  <a class="btn btn-warning mt-5 mb-5"  style="margin-left: 50px" href="{{ path('app_insert_posts') }}">Crear nuevo post</a>
 
 {% if not posts %}
   <h3>No hay ningún post disponible</h3>
@@ -13,15 +14,16 @@
 			{% set upperLimit = page * elementsPerPage %} 
 			 {% for post in posts %}
 				{% if loop.index >= lowerLimit and loop.index <= upperLimit %} 
-    <div class="card card-rounded text-center mb-5" style="width: 400px; height: 300px; border: 2px solid black; margin-left: 200px">
+				
+    <div class="card card-rounded text-center mb-5" style="width: 400px; height: 600px; border: 2px solid black; margin-left: 200px">
   
 	{#    {% if post.idUser is defined %}
     <h6 class="card-subtitle mb-2 text-muted">
         Publicado por {{ user.id }} (id: {{ user.id }})
     </h6>
 {% endif %} #}
-      {% if post.file %}
-        <img src="{{ asset('uploads/' ~ post.file) }}" alt="imagen del post" class="card-img-top" style="height: 200px; object-fit: cover;">
+      {% if post.image %}
+        <img src="{{ asset('uploads/images/' ~ post.image) }}" alt="imagen del post" class="card-img-top" style="height: 450px; object-fit: cover;">
       {% endif %}
       <div class="card-body">
         <h5 class="card-title">Titulo: {{ post.title }}</h5>
