@@ -4,4 +4,7 @@ export interface Post {
   file: string;
   created_at: string;
   user: string;
+  likes: number; // se agrega la propiedad likes
+  isSubmitted: number;
+  title: string;
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { Post } from 'src/app/models/post'; 
 
@@ -7,13 +7,13 @@ import { Post } from 'src/app/models/post';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent {
-  posts: Post[] = [];
+export class PostsComponent implements OnInit {
+  posts: Post[];
 
   constructor(private requestService: RequestService) {}
 
-  ngOnInit(): void {
-    this.requestService.getPosts().subscribe((posts: Post[]) => {
+  ngOnInit() {
+    this.requestService.getPosts().subscribe((posts) => {
       this.posts = posts;
     });
   }

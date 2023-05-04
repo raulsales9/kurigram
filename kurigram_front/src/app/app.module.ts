@@ -14,6 +14,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EventComponent } from './views/events/event/event.component';
 import { PostsComponent } from './views/posts/posts.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { PostFormComponent } from './views/new-post/new-post.component';
+
+
 
 @NgModule({
   declarations: [
@@ -26,13 +31,17 @@ import { PostsComponent } from './views/posts/posts.component';
     SigninComponent,
     ProfileComponent,
     EventComponent,
-    PostsComponent
+    PostsComponent,
+    PostFormComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,7 +6,7 @@ import { EventsComponent } from './views/events/events.component';
 import { LoginComponent } from './views/login/login.component';
 import { SigninComponent } from './views/signin/signin.component';
 import { ProfileComponent } from './views/profile/profile.component';
-
+import { PostsComponent } from './views/posts/posts.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'events', component: EventsComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent },
+  { path: 'posts', component: PostsComponent}
 ];
 
 @NgModule({
