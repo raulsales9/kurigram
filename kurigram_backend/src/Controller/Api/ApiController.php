@@ -82,7 +82,7 @@ class ApiController extends AbstractController
             "likes" => $getPost->getLikes(),
             "text" => $getPost->getText(),
             "isSubmitted" => $getPost->getIsSubmitted(),
-            "file" => $getPost->getFile(),
+            "image" => $getPost->getImage(),
             "title" => $getPost->getTitle(),
             "Users"=>$getPost->getIdUser()
         ];
@@ -119,7 +119,7 @@ class ApiController extends AbstractController
                 "likes" => $getPosts->getLikes(),
                 "text" => $getPosts->getText(),
                 "isSubmitted" => $getPosts->getIsSubmitted(),
-                "file" => $getPosts->getFile(),
+                "image" => $getPosts->getImage(),
                 "title" => $getPosts->getTitle(),
                 "id_user" => $getPosts->getIdUser()
             ];
