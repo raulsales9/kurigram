@@ -57,4 +57,16 @@ class FollowRepository extends ServiceEntityRepository
         $entityManager->flush();
     }
 
+    public function unfollowUser(int $followerId, int $followingId): void
+{
+    $follow = $this->findOneBy(['followers' => $followerId, 'following' => $followingId]);
+
+    if (!$follow) {
+        throw new \RuntimeException(sprintf('No follow found for follower %d and following %d', $followerId, $followingId));
+    }
+
+    $this->getEntityManager()->remove($follow);
+    $this->getEntityManager()->flush();
+}
+
 }

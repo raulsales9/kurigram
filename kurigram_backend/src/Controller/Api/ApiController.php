@@ -204,4 +204,11 @@ public function followUser($followerId, $followingId, FollowRepository $followRe
 
     return new JsonResponse(['message' => 'Usuario seguido correctamente.'], Response::HTTP_OK);
 }
+#[Route('/unfollowUser/{followerId}/{followingId}', name: 'unfollowUser_api', methods: ["DELETE"])]
+public function unfollowUser($followerId, $followingId, FollowRepository $followRepository)
+{
+    $followRepository->unfollowUser($followerId, $followingId);
+
+    return new JsonResponse(['message' => 'Dejaste de seguir al usuario.'], Response::HTTP_OK);
+}
 }
