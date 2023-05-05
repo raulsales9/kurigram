@@ -16,91 +16,39 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 #[Route('/twig', name: "app_")]
 class FollowsController extends AbstractController
 {
-    #[Route('/userFollowers/{id}', name: 'followers')]
-public function users(User $user, ?int $page, EntityManagerInterface $entityManager, SessionInterface $session): Response
+
+    #[Route('/userFollowing/{userId}', name: 'user_following')]
+public function following($userId, EntityManagerInterface $entityManager)
 {
-    $loggedInUser = $this->getUser();
+    $user = $entityManager->getRepository(User::class)->find($userId);
 
-    $userRepository = $entityManager->getRepository(User::class);
-    $users = $userRepository->findAllExceptUser($loggedInUser);
+    if (!$user) {
+        throw $this->createNotFoundException('No se encontró el usuario con el ID '.$userId);
+    }
 
-    $followRepository = $entityManager->getRepository(Follow::class);
-    $followers = $followRepository->findBy(['followers' => $user]);
+    $follows = $entityManager->getRepository(Follow::class)->findBy(['following' => $user]);
+
+    return $this->render('/kurigram/Follows/following.html.twig', [
+        'user' => $user,
+        'follows' => $follows,
+    ]);
+}
+#[Route('/userFollowers/{userId}', name: 'user_followers')]
+public function followers($userId, EntityManagerInterface $entityManager)
+{
+    $user = $entityManager->getRepository(User::class)->find($userId);
+
+    if (!$user) {
+        throw $this->createNotFoundException('No se encontró el usuario con el ID '.$userId);
+    }
+
+    $follows = $entityManager->getRepository(Follow::class)->findBy(['following' => $user]);
 
     return $this->render('/kurigram/Follows/followers.html.twig', [
-        'users' => $users,
-        'followers' => $followers,
-        'targetUser' => $user,
-        'loggedInUser' => $loggedInUser
+        'user' => $user,
+        'follows' => $follows,
     ]);
 }
 
-    #[Route('/userFollowing/{id}', name: 'following')]
-    public function following(EntityManagerInterface $entityManager, $id)
-    {
-        $user = $entityManager->getRepository(User::class)->find($id);
-        $followRepository = $entityManager->getRepository(Follow::class);
-        $following = $followRepository->findBy(['following' => $user]);
-        $users = [];
-        foreach ($following as $follow) {
-            $users[] = $follow->getFollower();
-        }
-        return $this->render('/kurigram/Follows/following.html.twig', [
-            'users' => $users,
-            'user' => $user
-        ]);
-    }
-
-   /*  #[Route('/follow/{id}', name: 'follow')]
-    public function followUser(Request $request, EntityManagerInterface $entityManager, User $id): Response
-    {
-        $user = $this->getUser();
-        $follow = new Follow();
-        $follow->setFollowing($user);
-        $follow->setFollowers($id);
-        $entityManager->persist($follow);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('user_profile', ['id' => $id->getId()]);
-    }
-
-    #[Route('/unfollow/{id}', name: 'unfollow')]
-    public function unfollowUser(Request $request, EntityManagerInterface $entityManager, User $id): Response
-    {
-        $user = $this->getUser();
-        $follow = $entityManager->getRepository(Follow::class)->findOneBy([
-            'following' => $user,
-            'followers' => $id
-        ]);
-        if ($follow) {
-            $entityManager->remove($follow);
-            $entityManager->flush();
-        }
-        return $this->redirectToRoute('user_profile', ['id' => $id->getId()]);
-    }
-
-    #[Route('/toggle_follow/{id}', name: 'toggle_follow')]
-public function toggleFollowUser(EntityManagerInterface $entityManager, User $id): RedirectResponse
-{
-    $user = $this->getUser();
-    $followRepository = $entityManager->getRepository(Follow::class);
-    $follow = $followRepository->findOneBy([
-        'following' => $user,
-        'followers' => $id
-    ]);
-
-    if ($follow) {
-        $entityManager->remove($follow);
-        $entityManager->flush();
-    } else {
-        $follow = new Follow();
-        $follow->setFollowing($user);
-        $follow->setFollowers($id);
-        $entityManager->persist($follow);
-        $entityManager->flush();
-    }
-
-    return $this->redirectToRoute('user_profile', ['id' => $id->getId()]);
-}  */
 
 }
