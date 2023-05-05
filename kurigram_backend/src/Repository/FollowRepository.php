@@ -1,26 +1,17 @@
 <?php
 
 namespace App\Repository;
-
+use App\Entity\User;
 use App\Entity\Follow;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Follow>
- *
- * @method Follow|null find($id, $lockMode = null, $lockVersion = null)
- * @method Follow|null findOneBy(array $criteria, array $orderBy = null)
- * @method Follow[]    findAll()
- * @method Follow[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
 class FollowRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Follow::class);
     }
-
     public function save(Follow $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -46,29 +37,24 @@ class FollowRepository extends ServiceEntityRepository
         return $follow !== null;
     }
 
+    
+    public function followUser($followerId, $followingId)
+    {
+        $entityManager = $this->getEntityManager();
 
-//    /**
-//     * @return Follow[] Returns an array of Follow objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('f.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+        $follower = $entityManager->getRepository(User::class)->find($followerId);
+        $following = $entityManager->getRepository(User::class)->find($followingId);
 
-//    public function findOneBySomeField($value): ?Follow
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if (!$follower || !$following) {
+            throw new \Exception('Usuario no encontrado.');
+        }
+
+        $follow = new Follow();
+        $follow->setFollowers($follower->getId());
+        $follow->setFollowing($following->getId());
+
+        $entityManager->persist($follow);
+        $entityManager->flush();
+    }
+
 }

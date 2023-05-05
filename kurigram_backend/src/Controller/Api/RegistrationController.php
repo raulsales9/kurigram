@@ -34,4 +34,6 @@ class RegistrationController extends AbstractController
     
         return new JsonResponse(['status' => 'Post created!'], Response::HTTP_CREATED);
     } 
+
+    
 }

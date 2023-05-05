@@ -3,9 +3,11 @@
 namespace App\Controller\Api;
 
 use App\Entity\User;
+use App\Entity\Follow;
 use App\Entity\Event;
 use App\Entity\Posts;
 use App\Repository\EventRepository;
+use App\Repository\FollowRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -177,4 +179,29 @@ class ApiController extends AbstractController
         return new JsonResponse(["status" => "Event updated!"], Response::HTTP_OK);
     }
 
+    #[Route('/follows/{id}', name: 'getAllFollows_api', methods: ["GET"])]
+public function getAllFollows(int $id, ManagerRegistry $doctrine): JsonResponse
+{
+    $followsRepository = $doctrine->getRepository(Follow::class);
+    $follows = $followsRepository->findBy(['following' => $id]);
+
+    $data = [];
+
+    foreach ($follows as $follow) {
+        $data[] = [
+            "following" => $follow->getFollowing(),
+            "followers" => $follow->getFollowers()
+        ];
+    }
+
+    return new JsonResponse($data, Response::HTTP_OK);
+}
+
+#[Route('/followUser/{followerId}/{followingId}', name: 'postFollower_api', methods: ["POST"])]
+public function followUser($followerId, $followingId, FollowRepository $followRepository)
+{
+    $followRepository->followUser($followerId, $followingId);
+
+    return new JsonResponse(['message' => 'Usuario seguido correctamente.'], Response::HTTP_OK);
+}
 }
