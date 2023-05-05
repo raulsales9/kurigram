@@ -1,1 +1,21 @@
-<p>gente works!</p>
+<table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>
+           <!--  <button (click)="followUser(currentUser.id, user.id)">Follow</button>
+          <button (click)="unfollowUser(user.id)">Dejar de seguir</button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>

@@ -24,6 +24,9 @@ export class RequestService {
   updateEvent = "http://localhost:8000/api/update/events"; 
   posts = "http://localhost:8000/api/posts";
   inserPosts ="http://localhost:8000/api/insert/post";
+  GetFollowers ="http://localhost:8000/api/follows/{id}";
+  FollowUser = "http://localhost:8000/api/followUser/{followerId}/{followedId}";
+  UnfollowUser ="http://localhost:8000/api/unfollowUser/{followerId}/{followedId}";
 
   public getLogs($email : string, $password : string) : Observable<Login> {
     return this.http.post<Login>(this.login, { email: $email, password: $password});
@@ -35,6 +38,7 @@ export class RequestService {
   public getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.posts);
   }
+
 
   public insertPost(post: Post): Observable<Post> {
     return this.http.post<Post>(this.inserPosts, post);
@@ -52,6 +56,25 @@ export class RequestService {
   public getUser(id?: number): Observable<User> {
     const url = id ? this.user + id : this.user;
     return this.http.get<User>(url);
+  }
+  public getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.user);
+  }
+
+  
+  public getFollowers(id: number): Observable<User[]> {
+    const url = this.GetFollowers.replace('{id}', id.toString());
+    return this.http.get<User[]>(url);
+  }
+
+  public followUser(followerId: number, followeeId: number): Observable<any> {
+    const url = this.FollowUser.replace('{id}', followerId.toString()).replace('{id}', followeeId.toString());
+    return this.http.put(url, {});
+  }
+
+  unfollowUser(userId: number, followeeId: number) {
+    const url = `${this.unfollowUser}/users/${userId}/follow`;
+    return this.http.delete(url, { params: { followeeId: followeeId.toString() } });
   }
 
   public updateUser(id : number, name : string, surnames : string, email : string, phone : string) : Observable<User> {
