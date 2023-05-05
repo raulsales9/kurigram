@@ -1,58 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RequestService } from 'src/app/services/request.service';
 import { Post } from 'src/app/models/post';
 
 @Component({
   selector: 'app-post-form',
-  template: ``,
+  templateUrl: './new-post.component.html',
 })
-export class PostFormComponent implements OnInit {
+export class PostFormComponent {
 
-  postForm = new FormGroup({
-    title: new FormControl('', Validators.required),
-    text: new FormControl('', Validators.required),
-    image: new FormControl(''),
-    id_user: new FormControl('', Validators.required)
-  });
+  newPost: Post = {
+    _id: '6',
+    created_at: '',
+    title: '',
+    text: '',
+    isSubmitted: 0,
+    image: '',
+    user: '',
+    likes: 0
+  };
 
-  constructor(private requestService: RequestService) { }
-
-  ngOnInit(): void {
-  }
+  constructor(private requestService: RequestService) {}
 
   onSubmit(): void {
-    const text = this.postForm.get('text')!.value || '';
-    const file = this.postForm.get('image')!.value || '';
-    const id_user = this.postForm.get('id_user')!.value || '';
-    const title = this.postForm.get('title')!.value || '';
-    
-    const newPost: Post = {
-      _id: '',
-      text: text,
-      file: file,
-      created_at: new Date().toISOString(),
-      user: id_user,
-      likes: 0,
-      isSubmitted: 1,
-      title: title
-    };
-    
-    this.requestService.insertPost(newPost)
-      .subscribe(
-        res => {
-          console.log(res);
-          this.postForm.reset();
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    this.requestService.insertPost(this.newPost).subscribe((post: Post) => {
+      console.log(post);
+      this.newPost = {
+        _id: '6',
+        created_at: '',
+        title: '',
+        text: '',
+        isSubmitted: 0,
+        image: '',
+        user: '',
+        likes: 0
+      };
+    });
   }
-}
 
-  
-  
-  
+}
   
   
