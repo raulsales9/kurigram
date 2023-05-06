@@ -1,21 +1,13 @@
-<table>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Teléfono</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.phone }}</td>
-        <td>
-           <!--  <button (click)="followUser(currentUser.id, user.id)">Follow</button>
-          <button (click)="unfollowUser(user.id)">Dejar de seguir</button> -->
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" *ngFor="let user of users" style="background-color: gray;">
+      <div style="background-color: white; padding: 10px; margin-bottom: 10px;">
+        <h1>{{ user.name }}</h1>
+        <div>
+          <button (click)="followUser(user.id)" class="btn btn-primary">Seguir</button>
+          <button (click)="unfollowUser(user.id)" class="btn btn-danger">Dejar de seguir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

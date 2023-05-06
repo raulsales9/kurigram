@@ -22,6 +22,8 @@ import { PostFormComponent } from './views/new-post/new-post.component';
 import { TimelineComponent } from './views/timeline/timeline.component';
 import { GenteComponent } from './views/gente/gente.component';
 import { IniciarSesionComponent } from './views/iniciar-sesion/iniciar-sesion.component';
+import { GuardControlGuard } from './guard-control.guard';
+
 
 
 
@@ -39,7 +41,7 @@ import { IniciarSesionComponent } from './views/iniciar-sesion/iniciar-sesion.co
     PostFormComponent,
     TimelineComponent,
     GenteComponent,
-    IniciarSesionComponent,
+    IniciarSesionComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +51,9 @@ import { IniciarSesionComponent } from './views/iniciar-sesion/iniciar-sesion.co
     BrowserAnimationsModule,
     MatCardModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [GuardControlGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

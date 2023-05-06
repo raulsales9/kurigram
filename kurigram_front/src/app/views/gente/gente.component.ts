@@ -8,32 +8,34 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./gente.component.css']
 })
 export class GenteComponent implements OnInit {
+  users: User[] = [];
 
-  users: User[];
+  constructor(private requestService: RequestService) {}
 
-  constructor(private requestService: RequestService) { }
+  ngOnInit() {
+    this.getUsers();
+  }
 
-  ngOnInit(): void {
-    this.requestService.getUsers().subscribe(data => {
-      this.users = data;
+  getUsers() {
+    this.requestService.getUsers().subscribe(users => {
+      this.users = users;
     });
   }
-  followUser(userId: number, followeeId: number) {
-    this.requestService.followUser(userId, followeeId).subscribe(data => {
+
+  followUser(id: number) {
+    const currentUserId = 123; // Obtener el ID del usuario actual
+    this.requestService.followUser(currentUserId, id).subscribe(() => {
       // Actualizar la lista de usuarios para reflejar el cambio
-      this.requestService.getUsers().subscribe(users => {
-        this.users = users;
-      });
+      this.getUsers();
     });
   }
-  
-  unfollowUser(userId: number, followeeId: number) {
-    this.requestService.unfollowUser(userId, followeeId).subscribe(data => {
+
+  unfollowUser(id: number) {
+    const currentUserId = 123; // Obtener el ID del usuario actual
+    this.requestService.unfollowUser(currentUserId, id).subscribe(() => {
       // Actualizar la lista de usuarios para reflejar el cambio
-      this.requestService.getUsers().subscribe(users => {
-        this.users = users;
-      });
+      this.getUsers();
     });
   }
-  }
+}
 

@@ -1,39 +1,41 @@
 <header>
     <nav class="navbar navbar-expand-lg bg-header">
-        <a class="navbar-brand" href="#">
-            <img src="../../../assets/images/logos/logo_corporativo_greyscale.png" class="img-header" alt="Logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav nav-pills mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-white ms-3 mb-3 mt-3" [routerLink]="['home']">
-                        <i class="fas fa-house-user" style="color: #e9eaed;"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white active ms-3 mb-3 mt-3" [routerLink]="['gente']">
-                        <i class="fas fa-users"></i> Gente
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white active ms-3 mb-3 mt-3" [routerLink]="['profile']">
-                        <i class="fas fa-user-circle"></i> Mi perfil
-                    </a>
-                </li>
-                <li class="nav-item ms-3 mb-3 mt-3">
-                    <a class="nav-link text-white active text-white active" [routerLink]="['signin']">
-                        <i class="fas fa-sign-in-alt"></i> SignIn
-                    </a>
-                </li>
-                <li class="nav-item text-white active ms-3 mb-3 mt-3">
-                    <a class="nav-link text-white active" [routerLink]="['iniciarsesion']">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </a>
-                </li>
-            </ul>
-        </div>
+      <a class="navbar-brand" href="#">
+        <img src="../../../assets/images/logos/logo_corporativo_greyscale.png" class="img-header" alt="Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav nav-pills mx-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white ms-3 mb-3 mt-3" [routerLink]="['home']">Home
+              <i class="fas fa-house-user" style="color: #e9eaed;"></i>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="currentUser">
+            <a class="nav-link text-white  ms-3 mb-3 mt-3" [routerLink]="['gente']">
+              <i class="fas fa-users"></i> Gente
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="currentUser">
+            <a class="nav-link text-white  ms-3 mb-3 mt-3" [routerLink]="['profile']">
+              <i class="fas fa-user-circle"></i> Mi perfil
+            </a>
+          </li>
+
+            <li class="nav-item ms-3 mb-3 mt-3" >
+              <a class="nav-link text-white  text-white " [routerLink]="['signin']">
+                <i class="fas fa-sign-in-alt"></i> SignIn
+              </a>
+            </li>
+            <li class="nav-item text-white  ms-3 mb-3 mt-3">
+              <a class="nav-link text-white " [routerLink]="['iniciarsesion']">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </a>
+            </li>
+
+        </ul>
+      </div>
     </nav>
-</header>
+  </header>
