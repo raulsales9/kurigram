@@ -1,3 +1,4 @@
+
 export interface Login {
     email: string;
     user:  string;
@@ -169,5 +170,5 @@ const typeMap: any = {
         { json: "email", js: "email", typ: "" },
         { json: "user", js: "user", typ: "" },
         { json: "rol", js: "rol", typ: "" },
-    ], false),
+    ], false),
 };

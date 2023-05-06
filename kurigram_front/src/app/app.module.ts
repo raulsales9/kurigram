@@ -11,9 +11,8 @@ import { EventsComponent } from './views/events/events.component';
 import { HomeComponent } from './views/home/home.component';
 
 import { SigninComponent } from './views/signin/signin.component';
-import { LoginComponent } from './views/login/login.component';
 import { ProfileComponent } from './views/profile/profile.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EventComponent } from './views/events/event/event.component';
 import { PostsComponent } from './views/posts/posts.component';
@@ -22,6 +21,7 @@ import { MatCardModule } from '@angular/material/card';
 import { PostFormComponent } from './views/new-post/new-post.component';
 import { TimelineComponent } from './views/timeline/timeline.component';
 import { GenteComponent } from './views/gente/gente.component';
+import { IniciarSesionComponent } from './views/iniciar-sesion/iniciar-sesion.component';
 
 
 
@@ -32,7 +32,6 @@ import { GenteComponent } from './views/gente/gente.component';
     ContactComponent,
     EventsComponent,
     HomeComponent,
-    LoginComponent,
     SigninComponent,
     ProfileComponent,
     EventComponent,
@@ -40,7 +39,7 @@ import { GenteComponent } from './views/gente/gente.component';
     PostFormComponent,
     TimelineComponent,
     GenteComponent,
-    
+    IniciarSesionComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +48,8 @@ import { GenteComponent } from './views/gente/gente.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatCardModule,
-    CommonModule 
+    CommonModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Login } from '../models/login';
 import { Router } from '@angular/router';
+import { Login } from '../models/login';
 @Injectable({
   providedIn: 'root'
 })
 export class AutentificationService {
-
   isUserLoggedIn : boolean = false;
 
   constructor(private router: Router ) { }

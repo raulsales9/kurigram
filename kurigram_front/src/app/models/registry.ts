@@ -1,3 +1,6 @@
 export interface Registry{
-    status: string;
+    email: string;
+    name: string;
+    password: string;
+    phone: number;
 }

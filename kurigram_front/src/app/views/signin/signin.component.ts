@@ -19,7 +19,7 @@ export class SigninComponent {
   public onRegistry(){
     if (this.password === this.confirmPassword) {
       this.service.registration(this.email, this.name, this.password, this.phone).subscribe(response =>{
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home']);
       });
     } else {
       alert("An error occurred, the passwords are not equal.");

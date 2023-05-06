@@ -7,33 +7,32 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav nav-pills mx-auto ">
-                <div>
-                    <li class="navbar-item">
-                        <a class="nav-link text-white active" [routerLink]="['home']">Inicio</a>
-                    </li>
-                </div>
-                <div >
-                    <li class="navbar-item">
-                        <a class="nav-link text-white active" [routerLink]="['gente']">Gente</a>
-                    </li>
-                </div>
-                
-                <div >
-                    <li class="nav-item">
-                        <a class="nav-link text-white active" [routerLink]="['profile']">Mi perfil</a>
-                    </li>
-                </div>
-                 <div>
-                    <li class="nav-item  ms-3 mb-3 mt-3">
-                        <a class="nav-link text-white active"  [routerLink]="['signin']">Login</a>
-                    </li>
-                </div>
-                <div>
-                    <li class="nav-item  ms-3 mb-3 mt-3">
-                        <a class="nav-link text-white active"  [routerLink]="['logeo']">Login</a>
-                    </li>
-                </div>
+            <ul class="navbar-nav nav-pills mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white ms-3 mb-3 mt-3" [routerLink]="['home']">
+                        <i class="fas fa-house-user" style="color: #e9eaed;"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white active ms-3 mb-3 mt-3" [routerLink]="['gente']">
+                        <i class="fas fa-users"></i> Gente
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white active ms-3 mb-3 mt-3" [routerLink]="['profile']">
+                        <i class="fas fa-user-circle"></i> Mi perfil
+                    </a>
+                </li>
+                <li class="nav-item ms-3 mb-3 mt-3">
+                    <a class="nav-link text-white active text-white active" [routerLink]="['signin']">
+                        <i class="fas fa-sign-in-alt"></i> SignIn
+                    </a>
+                </li>
+                <li class="nav-item text-white active ms-3 mb-3 mt-3">
+                    <a class="nav-link text-white active" [routerLink]="['iniciarsesion']">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>

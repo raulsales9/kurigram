@@ -55,10 +55,10 @@ export class ProfileComponent {
     this.peticio();
   }
 
-  public cerrarSesion() 
+  /* public cerrarSesion() 
   {
     this.Auth.logOut();
-}
+} */
 
 
 

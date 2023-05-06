@@ -28,8 +28,20 @@ export class RequestService {
   FollowUser = "http://localhost:8000/api/followUser/{followerId}/{followedId}";
   UnfollowUser ="http://localhost:8000/api/unfollowUser/{followerId}/{followedId}";
 
+  public loginOrRegister(user: any, isLogin: boolean): Observable<any> {
+    if (isLogin) {
+      return this.http.post<any>(this.login, user);
+    } else {
+      return this.http.post<any>(this.registry, user);
+    }
+}
+
   public getLogs($email : string, $password : string) : Observable<Login> {
     return this.http.post<Login>(this.login, { email: $email, password: $password});
+  }
+
+  public registerUser(user: any) {
+    return this.http.post<any>(this.registry, user);
   }
 
   public getEvents() : Observable<Events[]> {
@@ -72,7 +84,7 @@ export class RequestService {
     return this.http.put(url, {});
   }
 
-  unfollowUser(userId: number, followeeId: number) {
+  public unfollowUser(userId: number, followeeId: number) {
     const url = `${this.unfollowUser}/users/${userId}/follow`;
     return this.http.delete(url, { params: { followeeId: followeeId.toString() } });
   }
