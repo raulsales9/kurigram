@@ -13,7 +13,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private requestService: AuthService, private router: Router) {}
+  constructor(private AuthService: AuthService, private router: Router) {}
 
   login(): void {
     const user = {
@@ -21,11 +21,12 @@ export class LoginComponent {
       password: this.password
     };
 
-    this.requestService.loginOrRegister(user, true).subscribe(
+    this.AuthService.loginOrRegister(user, true).subscribe(
       data => {
         // save the token to localStorage
         localStorage.setItem('token', data.token);
 
+        this.AuthService.isLoggedIn = true; 
         // redirect to the home page
         this.router.navigate(['/home']);
       },

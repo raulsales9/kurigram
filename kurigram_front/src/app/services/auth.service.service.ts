@@ -11,6 +11,8 @@ import { User } from '../models/user';
 })
 export class AuthService {
 
+  isLoggedIn = false;
+
   constructor(public http : HttpClient) { }
 
   login = "http://localhost:8000/api/login";
@@ -23,6 +25,20 @@ export class AuthService {
     } else {
       return this.http.post<any>(this.registry, user);
     }
+  }
+
+  private currentUser: User;
+
+  setCurrentUser(user: User) {
+    this.currentUser = user;
+  }
+
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
+  getCurrentUserId() {
+    return this.currentUser ? this.currentUser.id : null;
   }
 
   public getLogs($email : string, $password : string) : Observable<Login> {

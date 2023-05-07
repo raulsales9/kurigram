@@ -30,6 +30,7 @@ export class SignupComponent {
     this.authService.registerUser(newUser).subscribe(
       (data: any) => {
         console.log(data);
+        this.authService.isLoggedIn = true; 
         this.router.navigate(['/home']);
       },
       (error: any) => {
@@ -37,4 +38,5 @@ export class SignupComponent {
       }
     );
   }
+  
 }

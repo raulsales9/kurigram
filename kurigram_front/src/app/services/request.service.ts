@@ -13,7 +13,6 @@ import { Post } from '../models/post';
 export class RequestService {
 
   constructor(public http : HttpClient) { }
-
   
   events = "http://localhost:8000/api/Todos/";
   users = "http://localhost:8000/api/users/";
@@ -25,10 +24,6 @@ export class RequestService {
   GetFollowers ="http://localhost:8000/api/follows/{id}";
   FollowUser = "http://localhost:8000/api/followUser/{followerId}/{followedId}";
   UnfollowUser ="http://localhost:8000/api/unfollowUser/{followerId}/{followedId}";
-
-
-
-
 
   public getEvents() : Observable<Events[]> {
     return this.http.get<Events[]>(this.events)
@@ -55,8 +50,6 @@ export class RequestService {
     return this.http.post<Post>(this.inserPosts, post);
   }
 
-
-
   getUser(id?: number): Observable<User> {
     const url = id ? `${this.Singleuser}/${id}` : this.Singleuser;
     return this.http.get<User>(url);
@@ -66,13 +59,10 @@ export class RequestService {
     return this.http.get<User[]>(this.users);
   }
 
-  
   public getFollowers(id: number): Observable<User[]> {
     const url = this.GetFollowers.replace('{id}', id.toString());
     return this.http.get<User[]>(url);
   }
-
-
 
   public getCurrentUser(): Observable<User> {
     // Obtener el identificador del usuario actual (p. ej., de la sesión o el token)
@@ -86,6 +76,7 @@ export class RequestService {
     const url = `${this.GetFollowers.replace('{id}', userId.toString())}`;
     return this.http.get<number[]>(url);
   }
+  
   public updateUser(id : number, name : string, surnames : string, email : string, phone : string) : Observable<User> {
     return this.http.put<User>(this.update + id, {
       "name" : name,

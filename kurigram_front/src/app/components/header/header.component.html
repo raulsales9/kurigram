@@ -19,17 +19,17 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white  ms-3 mb-3 mt-3" [routerLink]="['/signup']">
+            <a class="nav-link text-white  ms-3 mb-3 mt-3" *ngIf="!isLoggedIn" [routerLink]="['/signup']">
               <i class="fas fa-users"></i> SignUp
             </a>
           </li>
           <li class="nav-item" >
-            <a class="nav-link text-white  ms-3 mb-3 mt-3" [routerLink]="['/login']">
+            <a class="nav-link text-white  ms-3 mb-3 mt-3" *ngIf="!isLoggedIn"  [routerLink]="['/login']">
               <i class="fas fa-users"></i> LogIn
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="logout()">Logout</a>
+            <a class="nav-linktext-white  ms-3 mb-3 mt-3" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
           </li>
         </ul>
       </div>

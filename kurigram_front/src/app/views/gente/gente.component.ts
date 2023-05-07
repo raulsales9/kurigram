@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service.service';
 
 @Component({
   selector: 'app-gente',
@@ -10,7 +11,7 @@ import { User } from 'src/app/models/user';
 export class GenteComponent implements OnInit {
   users: User[] = [];
 
-  constructor(private requestService: RequestService) {}
+  constructor(private requestService: RequestService, private authService: AuthService) {}
 
   ngOnInit() {
     this.getUsers();
@@ -23,19 +24,28 @@ export class GenteComponent implements OnInit {
   }
 
   followUser(id: number) {
-    const currentUserId = 123; // Obtener el ID del usuario actual
+    const currentUserId = this.authService.getCurrentUserId();
+    if (!currentUserId) {
+      // Si el usuario no está autenticado, mostrar un mensaje de error
+      console.error('Usuario no autenticado');
+      return;
+    }
     this.requestService.followUser(currentUserId, id).subscribe(() => {
       // Actualizar la lista de usuarios para reflejar el cambio
       this.getUsers();
     });
   }
-
+  
   unfollowUser(id: number) {
-    const currentUserId = 123; // Obtener el ID del usuario actual
+    const currentUserId = this.authService.getCurrentUserId();
+    if (!currentUserId) {
+      // Si el usuario no está autenticado, mostrar un mensaje de error
+      console.error('Usuario no autenticado');
+      return;
+    }
     this.requestService.unfollowUser(currentUserId, id).subscribe(() => {
       // Actualizar la lista de usuarios para reflejar el cambio
       this.getUsers();
     });
   }
 }
-
