@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PostsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,14 +28,15 @@ class Posts
     private ?bool $isSubmitted = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $file = null;
+    private ?string $image = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $title = null;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: true, name: 'id_user')]
-   private ?User $idUser = null;
+   private ?User $idUser;
+
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -72,14 +74,14 @@ class Posts
         return $this;
     }
 
-    public function getFile(): ?string
+    public function getImage(): ?string
     {
-        return $this->file;
+        return $this->image;
     }
 
-    public function setFile(string $file): self
+    public function setImage(string $image): self
     {
-        $this->file = $file;
+        $this->image = $image;
 
         return $this;
     }

@@ -15,4 +15,6 @@ class KurigramController extends AbstractController
             
         ]);
     }
+
+    
 }

@@ -1,1 +1,9 @@
-<p>profile works!</p>
+<h1>Profile zone</h1>
+
+<div *ngIf="hasUser">
+    <h3>{{ user.name }}</h3>
+    <p>Email: {{ user.email }}</p>
+    <p>Teléfono: {{ user.phone }}</p>
+  </div>
+
+  

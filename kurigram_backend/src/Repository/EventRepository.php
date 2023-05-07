@@ -16,8 +16,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EventRepository extends ServiceEntityRepository
 {
+    private $doctrine;
     public function __construct(ManagerRegistry $registry)
     {
+        $this->doctrine = $registry;
         parent::__construct($registry, Event::class);
     }
 
@@ -37,6 +39,54 @@ class EventRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function update($Event, $data) : void
+    {
+
+        $startDate = new \DateTime($data->request->get("startDate"));
+        $endDate = new \DateTime($data->request->get("endDate"));
+        $Event
+            ->setName($data->request->get("name"))
+            ->setDescription($data->request->get("description"))
+            ->setStartDate($startDate)
+            ->setEndDate($endDate)
+            ->setPlace($data->request->get("place"));
+            $this->doctrine->getManager()->persist($Event);
+            $this->doctrine->getManager()->flush();
+    }
+
+    public function insert($data) : void
+    {
+        $Event = new Event;
+        $startDate = new \DateTime($data->request->get("startDate"));
+        $endDate = new \DateTime($data->request->get("endDate"));
+        $file = $data->files->get('imagen');
+        $extension = "." . $file->getClientOriginalExtension();
+
+
+        $file->move('assets/img/tmp/', $file . $extension);
+
+        $getIds = $this->doctrine->getRepository(Event::class)->findAll();
+        $maxId = 0;
+        for ($i=0; $i < count($getIds); $i++) { 
+            if ($getIds[$i]->getId() > $maxId) {
+                $maxId = $getIds[$i]->getId(); 
+            }
+        }
+        $maxId++;
+       $newId = $maxId;
+
+        $Event
+            ->setId($newId)
+            ->setName($data->request->get("name"))
+            ->setPlace($data->request->get("place"))
+            ->setStartDate($startDate)
+            ->setEndDate($endDate)
+            ->setDescription($data->request->get("description"))
+            ->setImagen($file . $extension);
+        $this->doctrine->getManager()->persist($Event);
+        $this->doctrine->getManager()->flush();
     }
 
 //    /**

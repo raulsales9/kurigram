@@ -1,20 +1,85 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <main class="container">
+        <section>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2"></div>
+                <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mb-3 mt-3 bg-card">
+                    <h2 class=" mb-3 mt- text-center">Que puedes encontrar aqui?</h2>
+                </div>
+                <div class="col-xl-2 col-lg-2"></div>
+            </div>
+        </section>
+        <section class="row card-container">
+            <!--Tarjetas-->
+            <article class="card col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 align-items-center  imgCards">
+                <h5 class="card-title">
+                    Eventos
+                </h5>
+                <img src="./../img/img-cards/events.png" alt="Hollywood Sign on The Hill" />
+                <div class="card-body">
+                    <p class="card-text">
+                        Tu puedes recibir informacion de eventos clicando aqui
+                    </p>
+                </div>
+            </article>
+            <article class="card col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 align-items-center imgCards">
+                <h5 class="card-title">
+                    Seguidores
+                </h5>
+                <img src="./../img/img-cards/followers.png" class="card-img-top" alt="Palm Springs Road" />
+                <div class="card-body">
+                    <p class="card-text">Tu puedes recibir informacion de seguidores clicando aqui
+                    </p>
+                </div>
+            </article>
+            <article class="card col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 align-items-center  imgCards">
+                <h5 class="card-title">
+                    Juegos
+                </h5>
+                <img src="./../img/img-cards/games.png" class="card-img-top" alt="Palm Springs Road" />
+                <div class="card-body">
+                    <p class="card-text">Tu puedes recibir informacion de juegos clicando aqui
+                    </p>
+                </div>
+            </article>
 
-{% block title %}Hello StreamcubeController!{% endblock %}
+            <article class="card col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 align-items-center  imgCards">
+                <h5 class="card-title">
+                    Noticias
+                </h5>
+                <img src="./../img/img-cards/news.png" class="card-img-top" alt="Los Angeles Skyscrapers" />
+                <div class="card-body">
+                    <p class="card-text">
+                        Tu puedes recibir informacion de noticias clicando aqui
+                    </p>
+                </div>
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+            </article>
+            <article class="card col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 align-items-center  imgCards">
+                <h5 class="card-title">
+                    Retransmisión
+                </h5>
+                <img src="./../img/img-cards/streaming.png" class="card-img-top" alt="Los Angeles Skyscrapers" />
+                <div class="card-body">
+                    <p class="card-text">
+                        Tu puedes recibir informacion de seguidores retransmisión aqui
+                    </p>
+                </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            </article>
+            <article class="card col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 align-items-center  imgCards">
+                <h5 class="card-title">
+                    Más y mejor
+                </h5>
+                <img src="./../img/img-cards/more.png" class="card-img-top" alt="Los Angeles Skyscrapers" />
+                <div class="card-body">
+                    <p class="card-text">
+                        Tu puedes recibir informacion de más cosas clicando aqui 
+                    </p>
+                </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/kurigram/kurigram_backend/src/Controller/StreamcubeController.php'|file_link(0) }}">src/Controller/StreamcubeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/kurigram/kurigram_backend/templates/streamcube/index.html.twig'|file_link(0) }}">templates/streamcube/index.html.twig</a></code></li>
-    </ul>
-</div>
+            </article>
+        </section>
+    </main>
 {% endblock %}

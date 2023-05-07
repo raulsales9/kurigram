@@ -21,9 +21,6 @@ class Follow
     #[ORM\Column]
     private ?int $following = null;
 
-    #[ORM\Column]
-    private ?int $posts = null;
-
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'follow')]
     private Collection $idUser;
 
@@ -68,18 +65,46 @@ class Follow
         return $this;
     }
 
-    public function getPosts(): ?int
-    {
-        return $this->posts;
+    public function addFollower(User $follower): self
+{
+    if (!$this->idUser->contains($follower)) {
+        $this->idUser->add($follower);
+        $this->followers++;
     }
 
-    public function setPosts(int $posts): self
-    {
-        $this->posts = $posts;
+    return $this;
+}
 
-        return $this;
+public function removeFollower(User $follower): self
+{
+    if ($this->idUser->contains($follower)) {
+        $this->idUser->removeElement($follower);
+        $this->followers--;
     }
 
+    return $this;
+}
+
+public function addFollowing(User $following): self
+{
+    if (!$this->idUser->contains($following)) {
+        $this->idUser->add($following);
+        $this->following++;
+    }
+
+    return $this;
+}
+
+
+public function removeFollowing(User $following): self
+{
+    if ($this->idUser->contains($following)) {
+        $this->idUser->removeElement($following);
+        $this->following--;
+    }
+
+    return $this;
+}
 
     public function getIdUser(): Collection
     {

@@ -6,11 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,7 +25,7 @@ class User
     #[ORM\Column(type: Types::TEXT)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 180, unique: true )]
+    #[ORM\Column]
     private array $roles = [];
 
     #[ORM\OneToMany(mappedBy:'idUser',targetEntity: Posts::class)]
@@ -33,7 +35,7 @@ class User
     #[ORM\JoinColumn(referencedColumnName:'id_event')]
     private Collection $events;
 
-    #[ORM\ManyToMany(targetEntity: Message::class, mappedBy: 'idUser')]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'idUser')]
     #[ORM\JoinColumn(referencedColumnName:'id_message')]
     private Collection $messages;
 
@@ -41,6 +43,8 @@ class User
     #[ORM\JoinColumn(referencedColumnName:'id_follow')]
     private Collection $follow;
 
+    #[ORM\OneToMany(targetEntity: "Participant", mappedBy: "iduser")]
+    private $participants;
 
     #[ORM\Column]
     private ?string $password = null;
@@ -48,8 +52,6 @@ class User
     #[ORM\Column(nullable: true)]
     private ?int $phone = null;
 
-    #[ORM\Column]
-    private ?bool $is_admin = null;
 
 
     public function __construct()
@@ -78,18 +80,6 @@ class User
         return $this;
     }
 
-
-    public function isIsAdmin(): ?bool
-    {
-        return $this->is_admin;
-    }
-
-    public function setIsAdmin(bool $is_admin): self
-    {
-        $this->is_admin = $is_admin;
-
-        return $this;
-    }
 
     public function eraseCredentials()
     {
@@ -137,30 +127,12 @@ class User
         return $this;
     }
 
-
-    public function getMessage(): Collection
+    public function getUserIdentifier(): string
     {
-        return $this->events;
+        return (string) $this->email;
     }
 
-    public function addMessage(Message $messages): self
-    {
-        if (!$this->messages->contains($messages)) {
-            $this->messages->add($messages);
-            $messages->addIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $messages): self
-    {
-        if ($this->events->removeElement($messages)) {
-            $messages->removeIdUser($this);
-        }
-
-        return $this;
-    }
+    
 
     public function getPhone(): ?string
     {
@@ -186,21 +158,44 @@ class User
         return $this;
     }
 
+    public function getEvent(): Collection
+    {
+        return $this->events;
+    }
 
-    public function getPassword()
+    public function addEvent(Event $events): self
+    {
+        if (!$this->events->contains($events)) {
+            $this->events->add($events);
+            $events->addIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $events): self
+    {
+        if ($this->events->removeElement($events)) {
+            $events->removeIdUser($this);
+        }
+
+        return $this;
+    } 
+
+    public function getPassword(): string
     {
         return $this->password;
     }
 
 
-    public function setPassword($password)
+    public function setPassword($password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getFollow()
+    public function getFollow() :Collection
     {
         return $this->follow;
     }
@@ -227,5 +222,5 @@ class User
     }
 
 
-
 }
+
