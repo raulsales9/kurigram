@@ -1,3 +1,9 @@
-<h1>{{ user.name }}</h1>
-<p>Email: {{ user.email }}</p>
-<p>Teléfono: {{ user.phone }}</p>
+<h1>Profile zone</h1>
+
+<div *ngIf="hasUser">
+    <h3>{{ user.name }}</h3>
+    <p>Email: {{ user.email }}</p>
+    <p>Teléfono: {{ user.phone }}</p>
+  </div>
+
+  

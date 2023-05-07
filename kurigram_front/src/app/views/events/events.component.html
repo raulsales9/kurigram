@@ -1,9 +1,14 @@
-<!-- <div class="row mb-5">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-5 justify-content-start row" style="display: flex;">
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let content of contents; let i = index">
-          <app-event [imagen]="content.imagen" [titulo]="content.titulo" [description]="content.description"
-            [lugar]="content.lugar" [horario]="content.horario" [id]="content.id">
-          </app-event>
-        </div>
-    </div>
-</div> -->
+<h1>Eventos</h1>
+
+<div *ngFor="let event of events">
+  <p>{{ event.name }}</p>
+  <p>{{ event.description }}</p>
+  <p>Lugar: {{ event.place }}</p>
+  <p>Fecha de inicio: {{ event.start_date.date | date }}</p>
+  <p>Fecha de fin: {{ event.end_date.date | date }}</p>
+  <img [src]="event.imagen" style="width: 100px; height: 120px;" alt="{{ event.name }}">
+
+  <!-- Aquí puedes agregar más detalles del evento si lo deseas -->
+
+  <hr>
+</div>

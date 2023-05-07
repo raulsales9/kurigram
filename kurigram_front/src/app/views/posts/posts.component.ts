@@ -9,6 +9,11 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
+
+  like: number = 0;
+  public onClick(){
+    this.like++;
+  }
   posts: Post[];
   carouselOptions: OwlOptions = {
     loop: true,

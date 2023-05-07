@@ -2,16 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './views/home/home.component';
 import { ContactComponent } from './views/contact/contact.component';
-import { EventsComponent } from './views/events/events.component';
 import { SigninComponent } from './views/signin/signin.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { PostsComponent } from './views/posts/posts.component';
 import { GenteComponent } from './views/gente/gente.component';
 import { IniciarSesionComponent } from './views/iniciar-sesion/iniciar-sesion.component';
 import { GuardControlGuard } from './guard-control.guard';
+import { EventsComponent } from './views/events/events.component';
+import { PostFormComponent } from './views/new-post/new-post.component';
+import { MessagesComponent } from './views/messages/messages.component';
+import { SettingsComponent } from './views/settings/settings.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivateChild: [GuardControlGuard]  },
+  { path: '', component: HomeComponent,  },
   { path: 'home', component: HomeComponent },
   
   { path: 'contact', component: ContactComponent, canActivateChild: [GuardControlGuard] },
@@ -20,7 +23,10 @@ const routes: Routes = [
   { path: 'iniciarsesion', component: IniciarSesionComponent },
   { path: 'profile', component: ProfileComponent,  canActivateChild: [GuardControlGuard]  },
   { path: 'posts', component: PostsComponent},
-  { path: 'gente', component: GenteComponent, canActivateChild: [GuardControlGuard] },
+  { path: 'gente', component: GenteComponent },
+  { path: 'message', component: MessagesComponent },
+  { path: 'newpost', component: PostFormComponent},
+  { path: 'settings', component: SettingsComponent},
   { path: '**', redirectTo: '/home',canActivateChild: [GuardControlGuard]  }
 ];
 

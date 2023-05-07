@@ -18,20 +18,19 @@
               <i class="fas fa-users"></i> Gente
             </a>
           </li>
-          <li class="nav-item" *ngIf="currentUser">
-            <a class="nav-link text-white  ms-3 mb-3 mt-3" [routerLink]="['profile']">
-              <i class="fas fa-user-circle"></i> Mi perfil
-            </a>
-          </li>
-
-            <li class="nav-item ms-3 mb-3 mt-3" >
+            <li class="nav-item ms-3 mb-3 mt-3" *ngIf="!isLoggedIn" >
               <a class="nav-link text-white  text-white " [routerLink]="['signin']">
                 <i class="fas fa-sign-in-alt"></i> SignIn
               </a>
             </li>
-            <li class="nav-item text-white  ms-3 mb-3 mt-3">
+            <li class="nav-item text-white  ms-3 mb-3 mt-3" *ngIf="!isLoggedIn">
               <a class="nav-link text-white " [routerLink]="['iniciarsesion']">
                 <i class="fas fa-sign-in-alt"></i> Login
+              </a>
+            </li>
+            <li class="nav-item text-white  ms-3 mb-3 mt-3" *ngIf="isLoggedIn">
+              <a class="nav-link text-white " [routerLink]="['iniciarsesion']">
+                <i class="fas fa-sign-in-alt"></i> LogOut
               </a>
             </li>
 

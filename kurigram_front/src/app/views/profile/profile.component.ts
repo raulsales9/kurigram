@@ -13,8 +13,20 @@ export class ProfileComponent {
 
   user: User;
 
-ngOnInit() {
-  const currentUserId = 123; // Reemplaza esto por el identificador del usuario actual en tu aplicación
-  this.requestService.getUser(currentUserId).subscribe(user => this.user = user);
-}
+
+  ngOnInit() {
+    this.requestService.getCurrentUser().subscribe(currentUser => {
+      const currentUserId = currentUser.id;
+      this.requestService.getUser(currentUserId).subscribe(user => {
+        this.user = user;
+        console.log(this.user.id);
+      });
+    });
+  }
+   
+  
+
+  get hasUser(): boolean {
+    return !!this.user;
+  }
 }

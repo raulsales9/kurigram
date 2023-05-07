@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RequestService } from './services/request.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GuardControlGuard implements CanActivateChild  {
+export class GuardControlGuard implements CanActivate {
   constructor(private request: RequestService, private router: Router) {}
 
-  canActivateChild() {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.request.getCurrentUser()) {
       return true;
     } else {

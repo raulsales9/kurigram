@@ -1,16 +1,20 @@
- <div class="post" *ngFor="let post of posts">
-  <mat-card class="example-card posts">
-    <mat-card-header>
+<div class="text-center">
+  <h2>Publicaciones</h2>
+</div>
+
+<div class="post mt-5 b-5" *ngFor="let post of posts">
+  <mat-card class="example-card posts rounded-4">
+    <mat-card-header class="card ">
       <div mat-card-avatar class="example-header-image">
-        <img mat-card-image [src]="post.image" alt="Photo of a Shiba Inu">
+        <img mat-card-image [src]="post.image" style="height: 200px; width: 300px;" alt="Photo of a Shiba Inu">
       </div>
     </mat-card-header>
     <mat-card-content>
-      <p>{{post.text}}</p>
+      <p>{{post.text}}</p><small>{{post.created_at}}</small>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>{{post.created_at}}</button>
+    <mat-card-actions class="mt-3 mb-3 d-flex justify-content-center">
+      <button mat-button (click)="onClick()" class="btn btn-danger btn-lg">{{like}}</button>
+      <button mat-button class="btn btn-primary btn-lg">SHARE</button>
     </mat-card-actions>
   </mat-card>
 </div> 
-  
