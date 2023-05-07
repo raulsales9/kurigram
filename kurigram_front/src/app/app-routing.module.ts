@@ -24,9 +24,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent,  canActivateChild: [GuardControlGuard]  },
   { path: 'posts', component: PostsComponent},
   { path: 'gente', component: GenteComponent },
-  { path: 'message', component: MessagesComponent },
-  { path: 'newpost', component: PostFormComponent},
-  { path: 'settings', component: SettingsComponent},
+  { path: 'message', component: MessagesComponent, canActivateChild: [GuardControlGuard]  },
+  { path: 'newpost', component: PostFormComponent, canActivateChild: [GuardControlGuard] },
+  { path: 'settings', component: SettingsComponent, canActivateChild: [GuardControlGuard] },
   { path: '**', redirectTo: '/home',canActivateChild: [GuardControlGuard]  }
 ];
 

@@ -18,13 +18,13 @@
               <i class="fas fa-users"></i> Gente
             </a>
           </li>
-            <li class="nav-item ms-3 mb-3 mt-3" *ngIf="!isLoggedIn" >
-              <a class="nav-link text-white  text-white " [routerLink]="['signin']">
+            <li class="nav-item " *ngIf="!isLoggedIn" >
+              <a class="nav-link text-white ms-3 mb-3 mt-3 " [routerLink]="['signin']">
                 <i class="fas fa-sign-in-alt"></i> SignIn
               </a>
             </li>
-            <li class="nav-item text-white  ms-3 mb-3 mt-3" *ngIf="!isLoggedIn">
-              <a class="nav-link text-white " [routerLink]="['iniciarsesion']">
+            <li class="nav-item " *ngIf="!isLoggedIn">
+              <a class="nav-link text-white ms-3 mb-3 mt-3" [routerLink]="['iniciarsesion']">
                 <i class="fas fa-sign-in-alt"></i> Login
               </a>
             </li>

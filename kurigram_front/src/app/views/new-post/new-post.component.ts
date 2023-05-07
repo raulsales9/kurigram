@@ -10,7 +10,7 @@ export class PostFormComponent {
 
   newPost: Post = {
     _id: '6',
-    created_at: '',
+    created_at: new Date(),
     title: '',
     text: '',
     isSubmitted: 0,
@@ -26,7 +26,7 @@ export class PostFormComponent {
       console.log(post);
       this.newPost = {
         _id: '6',
-        created_at: '',
+        created_at: new Date(),
         title: '',
         text: '',
         isSubmitted: 0,

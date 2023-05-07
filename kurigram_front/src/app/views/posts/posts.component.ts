@@ -1,46 +1,50 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
-import { Post } from 'src/app/models/post'; 
+import { Post } from 'src/app/models/post';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.css']
+  styleUrls: ['./posts.component.css'],
 })
 export class PostsComponent implements OnInit {
-
-  like: number = 0;
-  public onClick(){
-    this.like++;
-  }
+  @Input() post: Post;
   posts: Post[];
-  carouselOptions: OwlOptions = {
-    loop: true,
-    margin: 10,
-    nav: true,
-    autoplay: true,
-    autoplayTimeout: 2000,
-    autoplayHoverPause: true,
-    responsive: {
-      0: {
-        items: 1
-      },
-      600: {
-        items: 3
-      },
-      1000: {
-        items: 5
-      }
-    },
-    navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>']
-  };
+  currentUserId: number;
 
   constructor(private requestService: RequestService) {}
 
+  public likes: number = 0;
   ngOnInit() {
+    // Obtener el ID del usuario actual. Este es solo un ejemplo y debes reemplazar esto con tu propia lógica para obtener el ID del usuario actual.
+    this.currentUserId = 1;
+  
     this.requestService.getPosts().subscribe((posts) => {
+      // Verificar si el usuario actual ya ha dado "me gusta" a cada publicación.
+      posts.forEach(post => {
+        const key = `liked_${post._id}_${this.currentUserId}`;
+        post.likes = Number(localStorage.getItem(`likes_${post._id}`)) || 0;
+        post.liked = localStorage.getItem(key) === 'true';
+      });
+  
       this.posts = posts;
     });
+  }
+  onLike(post: Post) {
+    const key = `liked_${post._id}_${this.currentUserId}`;
+    const hasLiked = localStorage.getItem(key) === 'true';
+  
+    if (hasLiked) {
+      post.likes--;
+      post.liked = false;
+      localStorage.setItem(key, 'false');
+    } else {
+      post.likes++;
+      post.liked = true;
+      localStorage.setItem(key, 'true');
+    }
+  
+    localStorage.setItem(`likes_${post._id}`, String(post.likes));
   }
 }
