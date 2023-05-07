@@ -9,7 +9,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { ContactComponent } from './views/contact/contact.component';
 import { HomeComponent } from './views/home/home.component';
 
-import { SigninComponent } from './views/signin/signin.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,11 +17,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { PostFormComponent } from './views/new-post/new-post.component';
 import { GenteComponent } from './views/gente/gente.component';
-import { IniciarSesionComponent } from './views/iniciar-sesion/iniciar-sesion.component';
 import { GuardControlGuard } from './guard-control.guard';
 import { EventsComponent } from './views/events/events.component';
 import { MessagesComponent } from './views/messages/messages.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { LoginComponent } from './views/login/login.component';
+import { SignupComponent } from './views/signup/signup.component';
 
 
 
@@ -33,15 +33,15 @@ import { SettingsComponent } from './views/settings/settings.component';
     HeaderComponent,
     ContactComponent,
     HomeComponent,
-    SigninComponent,
     ProfileComponent,
     PostsComponent,
     PostFormComponent,
     GenteComponent,
-    IniciarSesionComponent,
     EventsComponent,
     MessagesComponent,
-    SettingsComponent
+    SettingsComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

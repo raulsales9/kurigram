@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,21 +8,19 @@ import { RequestService } from 'src/app/services/request.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private request: RequestService) {}
-
-  isLoggedIn = false;
+  constructor(private request: RequestService, private router: Router) {}
 
   get currentUser() {
     return this.request.getCurrentUser();
   }
-  login() {
-    // logic to log in the user
-    this.isLoggedIn = true;
+
+  public logout() {
+    // Eliminar el token de autenticación del almacenamiento local o de sesión
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
+    // Navegar a la página de inicio de sesión
+    this.router.navigate(['/login']);
   }
 
-  // método para cerrar sesión
-  logout() {
-    // lógica para cerrar sesión
-    this.isLoggedIn = false;
-  }
+
 }
