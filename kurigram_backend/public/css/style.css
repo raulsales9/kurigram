@@ -48,7 +48,7 @@ main{
 /*Jumbotron*/
 .jumbotron{
     /* Founded at pexels.com without copyright permissions */
-    background: url("./../../../images/jumbotron/jumbotron_admin_pannel.jpg");
+    background: url("./../../../images/jumbotron/pexels-frank-cone-2258536.jpg");
     height: 700px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -124,4 +124,6 @@ main{
     background-color: grey;
 }
 
-
+a{
+    text-decoration: none;
+}
