@@ -9,24 +9,20 @@ import { AuthService } from 'src/app/services/auth.service.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  isLoggedIn = false;
+  currentUser: any;
+  isUserAuthenticated: boolean;
 
-  constructor(private request: RequestService, private router: Router, private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn;
+  ngOnInit() {
+    this.authService.isUserAuthenticated().subscribe(isAuthenticated => {
+      this.isUserAuthenticated = isAuthenticated;
+    });
   }
+  
 
-  get currentUser() {
-    return this.request.getCurrentUser();
+  logout(): void {
+    this.authService.logout();
+    this.currentUser = null;
   }
-
-  public logout() {
-    // Eliminar el token de autenticación del almacenamiento local o de sesión
-    localStorage.removeItem('token');
-    sessionStorage.removeItem('token');
-    // Navegar a la página de inicio de sesión
-    this.router.navigate(['/login']);
-  }
-
 }

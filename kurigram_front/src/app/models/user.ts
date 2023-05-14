@@ -3,7 +3,7 @@ export interface User{
     name: string,
     email: string,
     phone: string;
-    events: any[]
+    events: any[];
 }
 export class Convert {
     public static toWelcome(json: string): User {

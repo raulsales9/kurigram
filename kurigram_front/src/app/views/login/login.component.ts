@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service.service';
   styleUrls: ['./Login.component.css']
 })
 export class LoginComponent {
-
+  isAuthenticated = false;
 
   email: string = '';
   password: string = '';
@@ -27,6 +27,10 @@ export class LoginComponent {
         localStorage.setItem('token', data.token);
 
         this.AuthService.isLoggedIn = true; 
+
+        // set isAuthenticated to true
+        this.isAuthenticated = true;
+
         // redirect to the home page
         this.router.navigate(['/home']);
       },
