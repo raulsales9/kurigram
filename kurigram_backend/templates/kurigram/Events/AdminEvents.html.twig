@@ -29,8 +29,8 @@
 			{% endfor %}
 		 {% set totalPages = (((data|length)/elementsPerPage)|round(0, 'ceil')) %}
 		{% if page > 1 %}
-			<a href="{{ path('app_Post',{'page':1}) }}">&lt;&lt;</a>
-			<a href="{{ path('app_Post',{'page':page - 1}) }}">&lt;</a>
+			<a href="{{ path('app_Events',{'page':1}) }}">&lt;&lt;</a>
+			<a href="{{ path('app_Events',{'page':page - 1}) }}">&lt;</a>
 		{% else %}
 			<span>&lt;&lt;</span>
 			<span>&lt;</span>
@@ -39,12 +39,12 @@
 			{% if pageButton == page%}
 				<span>{{ pageButton }}</span>
 			{% else %}
-				<a href="{{ path('app_Post',{'page':pageButton}) }}">{{ pageButton }}</a>
+				<a href="{{ path('app_Events',{'page':pageButton}) }}">{{ pageButton }}</a>
 			{% endif %}
 		{% endfor %}
 		{% if page < totalPages %}
-			<a href="{{ path('app_Post',{'page':page + 1}) }}">&gt;</a>
-			<a href="{{ path('app_Post',{'page':totalPages}) }}">&gt;&gt;</a>
+			<a href="{{ path('Events',{'page':page + 1}) }}">&gt;</a>
+			<a href="{{ path('app_Events',{'page':totalPages}) }}">&gt;&gt;</a>
 		{% else %}
 			<span>&gt;</span>
 			<span>&gt;&gt;</span>
