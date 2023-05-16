@@ -2,9 +2,9 @@
 
 <div class="post mt-5 b-5" *ngFor="let event of events">
   <mat-card class="example-card posts rounded-4">
-    <mat-card-header class="card ">
-    <div mat-card-avatar class="example-header-image">
-      <img [src]="event.imagen" style="width: 100px; height: 120px;" alt="{{ event.name }}">
+    <mat-card-header class="card mt-3 mb-5">
+    <div mat-card-avatar class="example-header-image " style="width: 120px; height: 120px; justify-content: center;">
+      <img [src]="event.imagen" style="width: 100px; height: 100px;" alt="{{ event.name }}">
     </div>
     </mat-card-header>
     <mat-card-content class="mt-3">
