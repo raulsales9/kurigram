@@ -1,10 +1,9 @@
 {% extends 'layout.html.twig' %}
     {% block content %}
-	<section id="content">
-    <div class="container">
+    <section class="container mb-5 mt-5"style="background-color: grey">
 	<a class="btn btn-primary" href="/twig/listUser">⇦</a>
 	<h3>Usuario {{detalleClient["name"]}}</h3>
-	<article class="eventList">
+	<article class="eventList mb-5 mt-5" style="background-color: white; heigth: 50px">
  		<span class="fs-3 me-3">{{detalleClient["name"]}}</span>
 		<span class="text-muted ms-3"> {{detalleClient["email"]}} </span>
 		<span class="text-muted ms-3">- {{detalleClient["roles"]}} -</span>
@@ -12,31 +11,15 @@
 			<a class="btn btn-warning" href="/twig/updateUser/{{detalleClient["id"]}}">Editar Usuario</a>
 			<a class="btn btn-danger" href="/twig/deleteUser/{{detalleClient["id"]}}">Borrar Usuario</a>
 		</div>
-		<details class="mt-3"> 
-			<summary>Posts </summary>
-		<form method="post" action="">
-			
 				{% for task in detalleClient["posts"] %}
 				 	
-					<div class="ms-3">
-						{{task["name"]}}, <span class="text-muted"> {{task["type"]}} </span> <span>{{task["isSubmited"]}}</span> &emsp; <a class="text-decoration-none text-danger fs-5" href="/twig/deleteFile/{{task["idFile"]}}/{{detalleClient["id"]}}">Borrar fichero</a>
+					<div class="ms-3 mt-3 mb-3 text-center">
+						<span class="text-white"> {{task["type"]}} </span>
+						<span class="text-white">{{task["isSubmited"]}}</span>
 					</div> 
 				{% endfor %}
-
 				
-
-
-
-
-
-
-
-
-				<a class="btn btn-warning mt-3 mb-3" href="/twig/updatePosts/{{ detalleClient["id"] }}">Editar ficheros</a>
-				<a class="btn btn-success" href="/twig/insertPosts/{{ detalleClient["id"] }}">Nuevo fichero</a>
 		</article>
-		</form>
-		</detail>
-	</div>
-</section>
+	</section>
+
 {% endblock %}
