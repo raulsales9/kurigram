@@ -1,9 +1,4 @@
 
-
-INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20230504090033', '2023-05-04 09:00:36', 581),
-('DoctrineMigrations\\Version20230507015155', '2023-05-07 01:52:09', 589);
-
 INSERT INTO `event` (`id`, `description`, `place`, `name`, `end_date`, `start_date`, `imagen`) VALUES
 (4, 'paddle cullera', 'cullera', 'FUTNOL', '2023-06-10', '2023-05-04', '/tmp/phpF9zu34.jpg'),
 (5, 'PLAYA', 'cullera', 'WINSURF', '2023-06-09', '2023-05-03', '/tmp/phpgfwvi6.png'),
