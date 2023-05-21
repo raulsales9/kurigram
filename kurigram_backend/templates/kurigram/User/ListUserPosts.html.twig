@@ -1,9 +1,0 @@
-{% extends 'layout.html.twig' %}
-{% block content %}
-<h1>Posts de {{user_post.getName()}}</h1>
-{% for post in posts %}
-    {{post.getTitle()}}
-    {{post.getText()}}
-{% endfor %}
-    
-{% endblock %}
