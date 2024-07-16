@@ -12,7 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Event
 {
     #[ORM\Id]
-    #[ORM\Column(name: "id")]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -30,7 +31,8 @@ class Event
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $start_date = null;
 
-   #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'event')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events')]
+    #[ORM\JoinTable(name: 'user_event')] 
     private Collection $idUser;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -41,16 +43,9 @@ class Event
         $this->idUser = new ArrayCollection();
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -118,18 +113,21 @@ class Event
         return $this->idUser;
     }
 
-    public function addIdUser(User $idUser): self
+    public function addIdUser(User $user): self
     {
-        if (!$this->idUser->contains($idUser)) {
-            $this->idUser->add($idUser);
+        if (!$this->idUser->contains($user)) {
+            $this->idUser->add($user);
+            $user->addEvent($this);
         }
 
         return $this;
     }
 
-    public function removeIdUser(User $idUser): self
+    public function removeIdUser(User $user): self
     {
-        $this->idUser->removeElement($idUser);
+        if ($this->idUser->removeElement($user)) {
+            $user->removeEvent($this);
+        }
 
         return $this;
     }
@@ -139,7 +137,7 @@ class Event
         return $this->imagen;
     }
 
-    public function setImagen(?string $imagen) :self
+    public function setImagen(?string $imagen): self
     {
         $this->imagen = $imagen;
 

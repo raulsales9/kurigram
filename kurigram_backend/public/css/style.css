@@ -1,53 +1,48 @@
 /* Global colours / Colores generales */
-:root{
-   --darkblue: #0E2439;
-   --white: #FFF;
-   --grey:  #E6E6E6;
-   --blue: #1190CB;
-   --semidarkblue: #0142f3bd;
+:root {
+    --darkblue: #0E2439;
+    --white: #FFF;
+    --grey:  #E6E6E6;
+    --blue: #1190CB;
+    --semidarkblue: #0142f3bd;
 }
 
-
-/*  Fonts used / Fuentes utilizadas   */
-@font-face{
+/* Fonts used / Fuentes utilizadas */
+@font-face {
     font-family: roboto;
     src: url("");
 }
 
-@font-face{
+@font-face {
     font-family: poppins;
     src: url("./../styles/Poppins-MediumItalic.ttf");
 }
 
-/* Text / Texto*/
+/* Text / Texto */
 
-
-/*Navbar*/
-.navbar-item{
+/* Navbar */
+.navbar-item {
     margin-right: 20px;
 }
 
-
 /* Layout / Maquetado */
-header{
+header {
     background-color: var(--darkblue);
     height: 100px;
 }
 
-
-
-.img-header{
+.img-header {
     width: 71px;
     height: 53px; 
     margin-left: 15px;
 }
-main{
+
+main {
     margin-top: 50px;
 }
 
-/*Jumbotron*/
-.jumbotron{
-    /* Founded at pexels.com without copyright permissions */
+/* Jumbotron */
+.jumbotron {
     background: url("./../../../images/jumbotron/pexels-frank-cone-2258536.jpg");
     height: 700px;
     background-repeat: no-repeat;
@@ -56,74 +51,101 @@ main{
     opacity: 0.9;
 }
 
-.div-text-jumbo{
+.div-text-jumbo {
     background-color: var(--blue);
     opacity: 0.8;
 }
 
-.textoseparado{
+.textoseparado {
     margin-left: 10px;
     margin-bottom: 10px;
 }
 
-/*Cards*/
-.imgCard {
-    height: 200px;
-    width: 250px;
-    align-items: center;
-}
-.imgCard2 {
+/* Cards */
+.imgCard, .imgCard2 {
     height: 200px;
     width: 250px;
     align-items: center;
 }
 
-.card-container{
+.card-container {
     display: flex;
     gap: 3rem;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
-/*backgrounds*/
-.bg-text{
-   background: rgb(2,0,36);
-   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(196,196,245,1) 0%, rgba(0,212,255,1) 95%);
+/* Backgrounds */
+.bg-text {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(196,196,245,1) 0%, rgba(0,212,255,1) 95%);
 }
 
-.bg-card{
+.bg-card {
     background-color: var(--darkblue);
 }
 
-.bg-section{
+.bg-section {
     background-color: var(--white);
 }
-.bg-to-to{
+
+.bg-to-to {
     background-color: var(--blue);
 }
 
-.bg-header{
+.bg-header {
     background-color: var(--darkblue);
 }
 
-.bg-footer{
+.bg-footer {
     background-color: var(--semidarkblue);
 }
 
-.bg-copyright{
+.bg-copyright {
     background-color: var(--darkblue);
 }
 
-.eventList{
+.eventList {
     background-color: var(--darkblue);
     height: 200px;
     margin-bottom: 100px;
 }
 
-.bg-grey{
+.bg-grey {
     background-color: grey;
 }
 
-a{
+a {
     text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        height: auto;
+        padding: 10px;
+    }
+
+    .navbar-brand, .navbar-toggler {
+        margin-left: 10px;
+    }
+
+    .jumbotron {
+        height: auto;
+        background-size: cover;
+    }
+
+    .div-text-jumbo h1, .div-text-jumbo h4 {
+        font-size: 1.5rem;
+    }
+
+    .imgCard, .imgCard2 {
+        width: 100%;
+        height: auto;
+    }
+
+    .card-container {
+        flex-direction: column;
+    }
 }

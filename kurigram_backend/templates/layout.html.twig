@@ -1,93 +1,36 @@
 {% extends "base.html.twig" %}
 {% block layout %}
-    <header>
+<header>
     <nav class="navbar navbar-expand-lg bg-header">
-      <a class="navbar-brand" href="#">
-        <img src="../../../images/logos/logo_corporativo_greyscale.png" class="img-header" alt="Logo">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav mx-auto ">
-          <li class="navbar-item">
-            <a class="nav-link text-white" href="{{path('app_kurigram')}}">Inicio<br><i class="fa-home " style="--fa-primary-color: #ffffff; --fa-secondary-color: #c7c6c6;"></i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white text-center" href="{{path('app_profile')}}">Perfil<br><i class="fa-light fa-user"></i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white text-center" href="{{path('app_logout')}}">Cerrar sesión<br><i class="fa fa-sign-out "
-                aria-hidden="true"></i></a>
-          </li>
-        </ul>
-        
-      </div>
+        <a class="navbar-brand" href="#">
+            <img src="{{ asset('images/logos/logo_corporativo_greyscale.png') }}" class="img-header" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+                <li class="navbar-item">
+                    <a class="nav-link text-white" href="{{ path('app_kurigram') }}">Inicio<br><i class="fa fa-home"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white text-center" href="{{ path('app_profile') }}">Perfil<br><i class="fa fa-user"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white text-center" href="{{ path('app_logout') }}">Cerrar sesión<br><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                </li>
+            </ul>
+        </div>
     </nav>
-     
-  </header>
-    <div class="jumbotron jumbotron-fluid mt-3 mb-3" ;>
-      <div class="d-flex justify-content-center align-items-center h-100">
+</header>
+<div class="jumbotron jumbotron-fluid mt-3 mb-3">
+    <div class="d-flex justify-content-center align-items-center h-100">
         <div class="div-text-jumbo text-center text-white">
-          <h1 class="my-3  textoseparado text-uppercase">La mejor red social, con la mejor experiéncia y comunidad</h1>
-          <h4 class="my-3 text-uppercase">Empieza a compartir y consumir contenido</h4>
+            <h1 class="my-3 textoseparado text-uppercase">La mejor red social, con la mejor experiencia y comunidad</h1>
+            <h4 class="my-3 text-uppercase">Empieza a compartir y consumir contenido</h4>
         </div>
-      </div>
     </div>
-  {% block content %}{% endblock %}
-{# <footer class="bg-footer text-center text-lg-start " >
-  <div class="container text-center text-md-start">
-    <div class="row">
-      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center  mb-5 mt-5">
-        <!-- Content -->
-        <h6 class="text-uppercase fw-bold">Company name</h6>
-        <hr />
-
-        <p><a href="#"><img src="../../img_streamcube/logos/logo_Scube.png" style="width: 100px; height: 70px" class="im-footer"
-              alt="logo corporativo Scube"></a>
-            <a href="#"><img src="../../images/logos/logo_kurigram_color.png" style="width: 100px; height: 70px" class="im-footer"
-              alt="logo corporativo Scube"></a>
-        </p>
-      </div>
-      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center  mb-5 mt-5">
-        <!-- Links -->
-        <h6 class="text-uppercase fw-bold">Our Activity</h6>
-        <hr />
-        <p> <a> Kurigram@skurigram.com</a></p>
-        <p><a> +34 653 82 94 02</a></p>
-        <p><a> @Kurigram facebook and Instagram </a></p>
-      </div>
-      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center  mb-5 mt-5">
-        <!-- Links -->
-        <h6 class="text-uppercase fw-bold">another services</h6>
-        <hr />
-        <p>
-          <a href="../About/TerminosyCondicionesOscura.html" class="text-white">Terms & Conditions</a>
-        </p>
-        <p>
-          <a href="../About/PoliticaDePrivacidadOscura.html" class="text-white">Politic of
-            Privacity</a>
-        </p>
-        <p>
-          <a href="../About/QuienesSomosOscura.html" class="text-white">Contact Us</a>
-        </p>
-      </div>
-      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 text-center  mb-5 mt-5">
-        <!-- Links -->
-        <h6 class="text-uppercase fw-bold">another services</h6>
-        <hr />
-        <iframe class="text-center"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12373.086995368738!2d-0.25211245000000004!3d39.1685425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd61c891e7b680f3%3A0x7966a4339d6a26c4!2sCullera%2C%20Valencia!5e0!3m2!1ses!2ses!4v1672270607267!5m2!1ses!2ses"
-              width="120" height="120" style="border:0;" allowfullscreen="" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <div class="text-center text-white bg-copyright">
-      © 2023 Copyright: Raul Sales by Kurigram
-    </div>
-</footer> #}
+</div>
+{% block content %}{% endblock %}
+{# Footer can be added here if needed #}
 {% endblock %}

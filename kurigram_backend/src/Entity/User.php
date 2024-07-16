@@ -22,37 +22,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 20)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    #[ORM\OneToMany(mappedBy:'idUser',targetEntity: Posts::class)]
+    #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Posts::class)]
     private Collection $posts;
 
     #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'idUser')]
-    #[ORM\JoinColumn(referencedColumnName:'id_event')]
     private Collection $events;
 
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'idUser')]
-    #[ORM\JoinColumn(referencedColumnName:'id_message')]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user')]
     private Collection $messages;
 
     #[ORM\ManyToMany(targetEntity: Follow::class, mappedBy: 'idUser')]
-    #[ORM\JoinColumn(referencedColumnName:'id_follow')]
     private Collection $follow;
 
-    #[ORM\OneToMany(targetEntity: "Participant", mappedBy: "iduser")]
-    private $participants;
+    #[ORM\OneToMany(targetEntity: Participant::class, mappedBy: 'user')]
+    private Collection $participants;
 
     #[ORM\Column]
     private ?string $password = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $phone = null;
-
-
+    private ?string $phone = null;  // Cambiado a string ya que Phone puede incluir caracteres
 
     public function __construct()
     {
@@ -60,13 +55,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->posts = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->follow = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
-
 
     public function getEmail(): ?string
     {
@@ -80,10 +75,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
     public function eraseCredentials()
     {
-        
     }
 
     public function getPosts(): Collection
@@ -91,7 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->posts;
     }
 
-    public function addPosts(Posts $post): self
+    public function addPost(Posts $post): self
     {
         if (!$this->posts->contains($post)) {
             $this->posts->add($post);
@@ -101,11 +94,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removePosts(Posts $posts): self
+    public function removePost(Posts $post): self
     {
-        if ($this->posts->removeElement($posts)) {
-            if ($posts->getIdUser() === $this) {
-                $posts->setIdUser(null);
+        if ($this->posts->removeElement($post)) {
+            if ($post->getIdUser() === $this) {
+                $post->setIdUser(null);
             }
         }
 
@@ -132,14 +125,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    
-
     public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setPhone(string $phone): self
+    public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
 
@@ -158,48 +149,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getEvent(): Collection
+    public function getEvents(): Collection
     {
         return $this->events;
     }
 
-    public function addEvent(Event $events): self
+    public function addEvent(Event $event): self
     {
-        if (!$this->events->contains($events)) {
-            $this->events->add($events);
-            $events->addIdUser($this);
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->addIdUser($this);
         }
 
         return $this;
     }
 
-    public function removeEvent(Event $events): self
+    public function removeEvent(Event $event): self
     {
-        if ($this->events->removeElement($events)) {
-            $events->removeIdUser($this);
+        if ($this->events->removeElement($event)) {
+            $event->removeIdUser($this);
         }
 
         return $this;
-    } 
+    }
 
     public function getPassword(): string
     {
         return $this->password;
     }
 
-
-    public function setPassword($password): self
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getFollow() :Collection
+    public function getFollow(): Collection
     {
         return $this->follow;
     }
-    
+
     public function addFollow(Follow $follow): self
     {
         if (!$this->follow->contains($follow)) {
@@ -210,9 +200,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeFollow(follow $follow): self
+    public function removeFollow(Follow $follow): self
     {
-        if ($this->posts->removeElement($follow)) {
+        if ($this->follow->removeElement($follow)) {
             if ($follow->getIdUser() === $this) {
                 $follow->removeIdUser($this);
             }
@@ -221,6 +211,55 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
 
+    public function addParticipant(Participant $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+            $participant->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->participants->removeElement($participant)) {
+            if ($participant->getUser() === $this) {
+                $participant->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }
-

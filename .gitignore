@@ -1,0 +1,6 @@
+.github/
+kurigram_front/package.lock.json
+kurigram_front/node_modules/*
+
+kurigram_backend/package.lock.json
+kurigram_backend/node_modules/*
